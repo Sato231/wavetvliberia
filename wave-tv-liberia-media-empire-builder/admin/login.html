@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Wave Liberia</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #002868;
+            --secondary: #BF0A30;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .wave-gradient {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+        
+        .login-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            max-width: 400px;
+            width: 90%;
+        }
+        
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+        }
+        
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--primary);
+            top: -150px;
+            right: -100px;
+        }
+        
+        .shape-2 {
+            width: 200px;
+            height: 200px;
+            background: var(--secondary);
+            bottom: -100px;
+            left: -100px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Shapes -->
+    <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+    </div>
+
+    <!-- Login Card -->
+    <div class="login-card">
+        <!-- Header -->
+        <div class="wave-gradient p-8 text-center">
+            <div class="flex items-center justify-center mb-4">
+                <div class="h-16 w-16 rounded-full bg-white bg-opacity-20 flex items-center justify-center mr-3">
+                    <span class="text-white font-bold text-2xl">W</span>
+                </div>
+            </div>
+            <h1 class="text-2xl font-black text-white">WAVE LIBERIA</h1>
+            <p class="text-white text-opacity-90 mt-2">Complete Control Admin</p>
+        </div>
+        
+        <!-- Login Form -->
+        <div class="p-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-2">Sign In</h2>
+            <p class="text-gray-600 mb-6">Access the complete control dashboard</p>
+            
+            <form id="admin-login-form">
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-medium mb-2" for="admin-username">
+                        Username
+                    </label>
+                    <div class="relative">
+                        <input id="admin-username" type="text" 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent pl-10"
+                               placeholder="Enter username" value="admin">
+                        <i class="fas fa-user absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-gray-700 text-sm font-medium mb-2" for="admin-password">
+                        Password
+                    </label>
+                    <div class="relative">
+                        <input id="admin-password" type="password" 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent pl-10"
+                               placeholder="Enter password" value="waveliberia2023">
+                        <i class="fas fa-lock absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                </div>
+                
+                <button type="submit" class="w-full wave-gradient text-white py-3 rounded-lg font-medium hover:opacity-90 transition-opacity duration-300 mb-4">
+                    Sign In to Dashboard
+                </button>
+                
+                <div class="text-center">
+                    <a href="Home.html" class="text-gray-600 hover:text-blue-600 text-sm">
+                        <i class="fas fa-arrow-left mr-1"></i>
+                        Back to Website
+                    </a>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Footer -->
+        <div class="bg-gray-50 p-4 text-center border-t border-gray-200">
+            <p class="text-xs text-gray-500">© 2023 Wave Liberia. Secure Admin Access.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('admin-login-form');
+            
+            // Handle admin login
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const username = document.getElementById('admin-username').value;
+                const password = document.getElementById('admin-password').value;
+                
+                // Simple authentication
+                if (username === 'admin' && password === 'waveliberia2023') {
+                    // Show loading state
+                    const submitBtn = loginForm.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.innerHTML;
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Signing In...';
+                    submitBtn.disabled = true;
+                    
+                    // Set authentication flag
+                    sessionStorage.setItem('adminAuthenticated', 'true');
+                    
+                    // Redirect to dashboard
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 1000);
+                } else {
+                    // Show error
+                    alert('Invalid credentials. Please try again.');
+                    
+                    // Clear password field
+                    document.getElementById('admin-password').value = '';
+                    document.getElementById('admin-password').focus();
+                }
+            });
+            
+            // Focus on username field when page loads
+            document.getElementById('admin-username').focus();
+        });
+    </script>
+</body>
+</html>

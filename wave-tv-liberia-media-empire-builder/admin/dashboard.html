@@ -1,0 +1,2108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Control Admin | Wave Liberia</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #002868;
+            --secondary: #BF0A30;
+            --accent: #FFFFFF;
+            --dark: #0f172a;
+            --light: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+        
+        .wave-gradient {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+        
+        .sidebar {
+            transition: all 0.3s ease;
+        }
+        
+        .content-area {
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card {
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-item {
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+        
+        .nav-item:hover {
+            background: rgba(0, 40, 104, 0.1);
+        }
+        
+        .nav-item.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: #f1f5f9;
+            color: var(--dark);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: #e2e8f0;
+        }
+        
+        .modal {
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            transform: scale(0.9);
+            transition: all 0.3s ease;
+        }
+        
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+        
+        .color-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            margin-right: 8px;
+            border: 2px solid transparent;
+        }
+        
+        .color-option.active {
+            border-color: #333;
+        }
+        
+        .font-option {
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-right: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .font-option.active {
+            border-color: var(--primary);
+            background-color: rgba(0, 40, 104, 0.05);
+        }
+        
+        .editable {
+            border: 1px dashed transparent;
+            padding: 4px;
+            border-radius: 4px;
+            transition: all 0.2s;
+            cursor: text;
+        }
+        
+        .editable:hover {
+            border-color: var(--primary);
+            background-color: rgba(0, 40, 104, 0.05);
+        }
+        
+        .editable:focus {
+            outline: none;
+            border-color: var(--primary);
+            background-color: rgba(0, 40, 104, 0.05);
+        }
+        
+        .draggable {
+            cursor: move;
+        }
+        
+        .content-block {
+            border: 2px dashed #e2e8f0;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .content-block:hover {
+            border-color: var(--primary);
+        }
+        
+        .content-block.active {
+            border-color: var(--primary);
+            background-color: rgba(0, 40, 104, 0.05);
+        }
+        
+        .social-media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+        }
+        
+        .social-media-item {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+        
+        .facebook { background: #3b5998; }
+        .twitter { background: #1da1f2; }
+        .instagram { background: #e4405f; }
+        .youtube { background: #cd201f; }
+        .tiktok { background: #000000; }
+        .linkedin { background: #0077b5; }
+        
+        .live-preview {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+            background: white;
+            transform: scale(0.8);
+            transform-origin: top left;
+        }
+        
+        .preview-header {
+            background: var(--primary);
+            color: white;
+            padding: 16px;
+            text-align: center;
+        }
+        
+        .preview-nav {
+            background: #f8fafc;
+            padding: 12px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .preview-content {
+            padding: 20px;
+            min-height: 400px;
+        }
+        
+        .preview-footer {
+            background: #1e293b;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .template-preview {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .template-preview:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .template-preview.active {
+            border-color: var(--primary);
+            background-color: rgba(0, 40, 104, 0.05);
+        }
+        
+        .edit-toolbar {
+            position: absolute;
+            background: var(--primary);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 100;
+            transform: translateY(-100%);
+            margin-top: -8px;
+        }
+        
+        .edit-toolbar button {
+            background: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 3px;
+        }
+        
+        .edit-toolbar button:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .edit-mode .editable {
+            position: relative;
+        }
+        
+        .edit-mode .editable:hover::after {
+            content: "✎";
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            background: var(--primary);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+        
+        .user-role-badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .role-admin { background: #dc2626; color: white; }
+        .role-editor { background: #2563eb; color: white; }
+        .role-author { background: #7c3aed; color: white; }
+        .role-contributor { background: #059669; color: white; }
+        
+        .post-status {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .status-published { background: #d1fae5; color: #065f46; }
+        .status-draft { background: #fef3c7; color: #92400e; }
+        .status-pending { background: #dbeafe; color: #1e40af; }
+        
+        .editor-toolbar {
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .editor-toolbar button {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            padding: 6px 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .editor-toolbar button:hover {
+            background: #f1f5f9;
+        }
+        
+        .editor-content {
+            min-height: 300px;
+            padding: 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 0 0 8px 8px;
+        }
+        
+        .editor-content:focus {
+            outline: none;
+        }
+        
+        .category-badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            background: #f1f5f9;
+            color: #475569;
+        }
+        
+        .category-news { background: #dbeafe; color: #1e40af; }
+        .category-entertainment { background: #f3e8ff; color: #7c3aed; }
+        .category-sports { background: #dcfce7; color: #166534; }
+        .category-technology { background: #fef3c7; color: #92400e; }
+
+        /* Visual Editor Styles */
+        .visual-editor {
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .editor-tools {
+            background: #1e293b;
+            padding: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .tool-btn {
+            background: #374151;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .tool-btn:hover {
+            background: #4b5563;
+        }
+        
+        .tool-btn.active {
+            background: var(--primary);
+        }
+        
+        .element-palette {
+            background: #f8fafc;
+            padding: 16px;
+            border-right: 1px solid #e2e8f0;
+        }
+        
+        .palette-item {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 8px;
+            cursor: move;
+            transition: all 0.2s;
+        }
+        
+        .palette-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .edit-zone {
+            min-height: 600px;
+            background: white;
+            position: relative;
+            border: 2px dashed #d1d5db;
+        }
+        
+        .edit-zone.edit-mode {
+            border-color: var(--primary);
+        }
+        
+        .element {
+            position: relative;
+            border: 1px dashed transparent;
+            padding: 8px;
+            margin: 4px;
+            transition: all 0.2s;
+        }
+        
+        .element:hover {
+            border-color: #93c5fd;
+        }
+        
+        .element.selected {
+            border-color: var(--primary);
+            background-color: rgba(59, 130, 246, 0.05);
+        }
+        
+        .element-controls {
+            position: absolute;
+            top: -30px;
+            right: 0;
+            background: var(--primary);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            display: none;
+            gap: 4px;
+        }
+        
+        .element:hover .element-controls {
+            display: flex;
+        }
+        
+        .element-controls button {
+            background: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 2px 4px;
+            border-radius: 2px;
+        }
+        
+        .element-controls button:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .property-panel {
+            background: #f8fafc;
+            padding: 16px;
+            border-left: 1px solid #e2e8f0;
+            min-width: 300px;
+        }
+        
+        .property-group {
+            margin-bottom: 16px;
+        }
+        
+        .property-label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #374151;
+        }
+        
+        .color-picker {
+            width: 100%;
+            height: 40px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        
+        .font-picker {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+        }
+        
+        .size-input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+        }
+        
+        .live-preview-container {
+            transform: scale(0.7);
+            transform-origin: top left;
+            width: 140%;
+            height: 140%;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Admin Portal Layout -->
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="sidebar w-64 bg-white shadow-lg fixed h-full z-40">
+            <!-- Logo -->
+            <div class="p-6 border-b border-gray-200">
+                <div class="flex items-center">
+                    <div class="h-10 w-10 rounded-full wave-gradient flex items-center justify-center mr-3">
+                        <span class="text-white font-bold text-lg">W</span>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-black text-gray-900">WAVE LIBERIA</h1>
+                        <p class="text-xs text-gray-600 -mt-1">Complete Control</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Navigation -->
+            <div class="p-4">
+                <ul class="space-y-2">
+                    <li>
+                        <a href="#" class="nav-item active flex items-center p-3 text-gray-700" data-section="posts">
+                            <i class="fas fa-edit mr-3"></i>
+                            <span>Create Post</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-item flex items-center p-3 text-gray-700" data-section="content">
+                            <i class="fas fa-newspaper mr-3"></i>
+                            <span>All Posts</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-item flex items-center p-3 text-gray-700" data-section="visual-editor">
+                            <i class="fas fa-paint-brush mr-3"></i>
+                            <span>Visual Editor</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-item flex items-center p-3 text-gray-700" data-section="design">
+                            <i class="fas fa-palette mr-3"></i>
+                            <span>Design</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-item flex items-center p-3 text-gray-700" data-section="social">
+                            <i class="fas fa-share-alt mr-3"></i>
+                            <span>Social Media</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-item flex items-center p-3 text-gray-700" data-section="users">
+                            <i class="fas fa-users mr-3"></i>
+                            <span>User Management</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-item flex items-center p-3 text-gray-700" data-section="settings">
+                            <i class="fas fa-cogs mr-3"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <!-- Quick Actions -->
+                <div class="mt-8">
+                    <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Quick Actions</h3>
+                    <div class="space-y-2">
+                        <button class="w-full btn-primary p-3 rounded-lg text-sm font-medium flex items-center justify-center" id="new-post-btn">
+                            <i class="fas fa-plus mr-2"></i>
+                            New Post
+                        </button>
+                        <button class="w-full btn-secondary p-3 rounded-lg text-sm font-medium flex items-center justify-center" id="preview-site-btn">
+                            <i class="fas fa-eye mr-2"></i>
+                            View Site
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- User Profile -->
+            <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200">
+                <div class="flex items-center">
+                    <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Admin" class="h-10 w-10 rounded-full mr-3">
+                    <div class="flex-1">
+                        <p class="text-sm font-medium">Complete Control</p>
+                        <p class="text-xs text-gray-500">Super Admin</p>
+                    </div>
+                </div>
+                <!-- Logout Button -->
+                <button class="w-full btn-secondary p-3 rounded-lg text-sm font-medium flex items-center justify-center mt-2" id="logout-btn">
+                    <i class="fas fa-sign-out-alt mr-2"></i>
+                    Logout
+                </button>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="content-area flex-1 ml-0 lg:ml-64 transition-all duration-300">
+            <!-- Top Bar -->
+            <header class="bg-white shadow-sm py-4 px-6 flex items-center justify-between">
+                <div class="flex items-center">
+                    <button id="menu-toggle" class="text-gray-500 hover:text-gray-700 mr-4 lg:hidden">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                    <h2 class="text-xl font-bold text-gray-800" id="section-title">Create Post</h2>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <!-- Edit Mode Toggle -->
+                    <button class="btn-secondary px-4 py-2 rounded-lg text-sm font-medium hidden" id="edit-mode-toggle">
+                        <i class="fas fa-edit mr-2"></i>
+                        <span>Edit Mode: OFF</span>
+                    </button>
+                    
+                    <!-- Publish Button -->
+                    <button class="btn-primary px-4 py-2 rounded-lg text-sm font-medium" id="publish-btn">
+                        <i class="fas fa-rocket mr-2"></i>
+                        <span id="publish-text">Publish Website</span>
+                        <span id="publish-loading" class="hidden">
+                            <i class="fas fa-spinner fa-spin mr-2"></i>
+                            Publishing...
+                        </span>
+                    </button>
+                </div>
+            </header>
+            
+            <!-- Main Content -->
+            <main class="p-6">
+                <!-- Create Post Section -->
+                <div id="posts-section" class="section-content">
+                    <div class="bg-white rounded-xl shadow p-6">
+                        <h3 class="text-lg font-bold mb-6">Create New Post</h3>
+                        
+                        <form id="post-form" class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="md:col-span-2">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Post Title</label>
+                                        <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Enter a catchy title..." id="post-title">
+                                    </div>
+                                    
+                                    <div class="mt-6">
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Post Content</label>
+                                        <div class="border border-gray-300 rounded-lg overflow-hidden">
+                                            <div class="editor-toolbar">
+                                                <button type="button" data-command="bold"><i class="fas fa-bold"></i></button>
+                                                <button type="button" data-command="italic"><i class="fas fa-italic"></i></button>
+                                                <button type="button" data-command="underline"><i class="fas fa-underline"></i></button>
+                                                <div class="border-l border-gray-300 mx-2"></div>
+                                                <button type="button" data-command="insertUnorderedList"><i class="fas fa-list-ul"></i></button>
+                                                <button type="button" data-command="insertOrderedList"><i class="fas fa-list-ol"></i></button>
+                                                <div class="border-l border-gray-300 mx-2"></div>
+                                                <button type="button" data-command="createLink"><i class="fas fa-link"></i></button>
+                                                <button type="button" data-command="unlink"><i class="fas fa-unlink"></i></button>
+                                                <div class="border-l border-gray-300 mx-2"></div>
+                                                <button type="button" data-command="justifyLeft"><i class="fas fa-align-left"></i></button>
+                                                <button type="button" data-command="justifyCenter"><i class="fas fa-align-center"></i></button>
+                                                <button type="button" data-command="justifyRight"><i class="fas fa-align-right"></i></button>
+                                            </div>
+                                            <div class="editor-content" contenteditable="true" id="post-content" placeholder="Write your amazing content here..."></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="space-y-6">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Featured Image</label>
+                                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:border-blue-400 transition-colors" id="image-upload-area">
+                                            <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
+                                            <p class="text-sm text-gray-500">Click to upload or drag and drop</p>
+                                            <p class="text-xs text-gray-400 mt-1">PNG, JPG, GIF up to 10MB</p>
+                                            <input type="file" class="hidden" id="featured-image" accept="image/*">
+                                        </div>
+                                        <div id="image-preview" class="mt-4 hidden">
+                                            <img id="preview-img" class="w-full h-48 object-cover rounded-lg">
+                                            <button type="button" class="btn-secondary w-full mt-2 py-2 rounded-lg text-sm" id="remove-image">
+                                                Remove Image
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Category</label>
+                                        <select class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" id="post-category">
+                                            <option value="news">News</option>
+                                            <option value="entertainment">Entertainment</option>
+                                            <option value="sports">Sports</option>
+                                            <option value="technology">Technology</option>
+                                            <option value="education">Education</option>
+                                            <option value="lifestyle">Lifestyle</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Tags</label>
+                                        <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Add tags (comma separated)" id="post-tags">
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Excerpt</label>
+                                        <textarea rows="3" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Brief summary of your post" id="post-excerpt"></textarea>
+                                    </div>
+                                    
+                                    <div class="bg-gray-50 p-4 rounded-lg">
+                                        <h4 class="font-medium mb-3">Publish</h4>
+                                        <div class="space-y-3">
+                                            <div class="flex items-center">
+                                                <input type="radio" id="publish-now" name="publish-status" value="publish" class="mr-2" checked>
+                                                <label for="publish-now" class="text-sm">Publish immediately</label>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <input type="radio" id="save-draft" name="publish-status" value="draft" class="mr-2">
+                                                <label for="save-draft" class="text-sm">Save as draft</label>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <input type="radio" id="schedule" name="publish-status" value="schedule" class="mr-2">
+                                                <label for="schedule" class="text-sm">Schedule for later</label>
+                                            </div>
+                                            <div id="schedule-date" class="hidden mt-2">
+                                                <input type="datetime-local" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
+                                            </div>
+                                        </div>
+                                        <div class="mt-4 flex space-x-3">
+                                            <button type="submit" class="btn-primary flex-1 py-2 rounded-lg text-sm font-medium">
+                                                <i class="fas fa-paper-plane mr-2"></i>
+                                                Publish Post
+                                            </button>
+                                            <button type="button" class="btn-secondary px-4 py-2 rounded-lg text-sm font-medium" id="save-draft-btn">
+                                                Save Draft
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- All Posts Section -->
+                <div id="content-section" class="section-content hidden">
+                    <div class="bg-white rounded-xl shadow">
+                        <div class="p-6 border-b border-gray-200 flex justify-between items-center">
+                            <h3 class="text-lg font-bold">All Posts</h3>
+                            <div class="flex space-x-3">
+                                <select class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" id="filter-category">
+                                    <option value="">All Categories</option>
+                                    <option value="news">News</option>
+                                    <option value="entertainment">Entertainment</option>
+                                    <option value="sports">Sports</option>
+                                    <option value="technology">Technology</option>
+                                </select>
+                                <select class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" id="filter-status">
+                                    <option value="">All Status</option>
+                                    <option value="published">Published</option>
+                                    <option value="draft">Draft</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="overflow-x-auto">
+                                <table class="w-full">
+                                    <thead>
+                                        <tr class="text-left text-sm text-gray-500 border-b border-gray-200">
+                                            <th class="pb-3 font-medium">Title</th>
+                                            <th class="pb-3 font-medium">Author</th>
+                                            <th class="pb-3 font-medium">Category</th>
+                                            <th class="pb-3 font-medium">Date</th>
+                                            <th class="pb-3 font-medium">Status</th>
+                                            <th class="pb-3 font-medium">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-200" id="posts-table-body">
+                                        <!-- Posts will be dynamically added here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Visual Editor Section -->
+                <div id="visual-editor-section" class="section-content hidden">
+                    <div class="bg-white rounded-xl shadow p-6">
+                        <h3 class="text-lg font-bold mb-4">Complete Visual Editor</h3>
+                        <p class="text-gray-600 mb-6">Drag and drop elements, edit content visually, and customize every aspect of your website.</p>
+                        
+                        <div class="visual-editor">
+                            <!-- Editor Tools -->
+                            <div class="editor-tools">
+                                <button class="tool-btn active" data-tool="select">
+                                    <i class="fas fa-mouse-pointer mr-2"></i>Select
+                                </button>
+                                <button class="tool-btn" data-tool="text">
+                                    <i class="fas fa-font mr-2"></i>Text
+                                </button>
+                                <button class="tool-btn" data-tool="image">
+                                    <i class="fas fa-image mr-2"></i>Image
+                                </button>
+                                <button class="tool-btn" data-tool="button">
+                                    <i class="fas fa-square mr-2"></i>Button
+                                </button>
+                                <button class="tool-btn" data-tool="section">
+                                    <i class="fas fa-square-full mr-2"></i>Section
+                                </button>
+                                <button class="tool-btn" data-tool="layout">
+                                    <i class="fas fa-th mr-2"></i>Layout
+                                </button>
+                                <div class="flex-1"></div>
+                                <button class="tool-btn" id="toggle-edit-mode">
+                                    <i class="fas fa-edit mr-2"></i>Edit Mode
+                                </button>
+                                <button class="tool-btn btn-primary" id="save-visual-changes">
+                                    <i class="fas fa-save mr-2"></i>Save Changes
+                                </button>
+                            </div>
+                            
+                            <div class="flex" style="height: 700px;">
+                                <!-- Element Palette -->
+                                <div class="element-palette w-64">
+                                    <h4 class="font-bold mb-4">Elements</h4>
+                                    <div class="palette-item" data-type="header" draggable="true">
+                                        <i class="fas fa-heading mr-2"></i>Header
+                                    </div>
+                                    <div class="palette-item" data-type="paragraph" draggable="true">
+                                        <i class="fas fa-paragraph mr-2"></i>Paragraph
+                                    </div>
+                                    <div class="palette-item" data-type="image" draggable="true">
+                                        <i class="fas fa-image mr-2"></i>Image
+                                    </div>
+                                    <div class="palette-item" data-type="button" draggable="true">
+                                        <i class="fas fa-square mr-2"></i>Button
+                                    </div>
+                                    <div class="palette-item" data-type="section" draggable="true">
+                                        <i class="fas fa-square-full mr-2"></i>Section
+                                    </div>
+                                    <div class="palette-item" data-type="navigation" draggable="true">
+                                        <i class="fas fa-bars mr-2"></i>Navigation
+                                    </div>
+                                    <div class="palette-item" data-type="footer" draggable="true">
+                                        <i class="fas fa-window-minimize mr-2"></i>Footer
+                                    </div>
+                                </div>
+                                
+                                <!-- Edit Zone -->
+                                <div class="flex-1 relative">
+                                    <div class="edit-zone" id="edit-zone">
+                                        <!-- Live preview of the website will be loaded here -->
+                                        <iframe src="Home.html" class="w-full h-full border-0" id="live-preview-frame"></iframe>
+                                    </div>
+                                </div>
+                                
+                                <!-- Property Panel -->
+                                <div class="property-panel w-80">
+                                    <h4 class="font-bold mb-4">Properties</h4>
+                                    <div id="property-panel-content">
+                                        <div class="property-group">
+                                            <div class="property-label">Text Content</div>
+                                            <textarea class="w-full border border-gray-300 rounded-lg p-2" rows="3" id="prop-text-content">Sample text content</textarea>
+                                        </div>
+                                        <div class="property-group">
+                                            <div class="property-label">Font Family</div>
+                                            <select class="font-picker" id="prop-font-family">
+                                                <option value="Poppins">Poppins</option>
+                                                <option value="Arial">Arial</option>
+                                                <option value="Georgia">Georgia</option>
+                                                <option value="Times New Roman">Times New Roman</option>
+                                            </select>
+                                        </div>
+                                        <div class="property-group">
+                                            <div class="property-label">Font Size</div>
+                                            <input type="text" class="size-input" id="prop-font-size" value="16px">
+                                        </div>
+                                        <div class="property-group">
+                                            <div class="property-label">Text Color</div>
+                                            <input type="color" class="color-picker" id="prop-text-color" value="#000000">
+                                        </div>
+                                        <div class="property-group">
+                                            <div class="property-label">Background Color</div>
+                                            <input type="color" class="color-picker" id="prop-bg-color" value="#ffffff">
+                                        </div>
+                                        <div class="property-group">
+                                            <div class="property-label">Padding</div>
+                                            <input type="text" class="size-input" id="prop-padding" value="10px">
+                                        </div>
+                                        <div class="property-group">
+                                            <div class="property-label">Margin</div>
+                                            <input type="text" class="size-input" id="prop-margin" value="0px">
+                                        </div>
+                                        <div class="property-group">
+                                            <button class="w-full btn-primary py-2 rounded-lg" id="apply-properties">
+                                                Apply Changes
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Design Section -->
+                <div id="design-section" class="section-content hidden">
+                    <div class="bg-white rounded-xl shadow p-6">
+                        <h3 class="text-lg font-bold mb-6">Complete Design Control</h3>
+                        
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            <!-- Color Scheme -->
+                            <div class="space-y-6">
+                                <h4 class="text-lg font-semibold">Color Scheme</h4>
+                                
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Primary Color</label>
+                                        <input type="color" class="color-picker w-full h-12 rounded-lg" id="primary-color" value="#002868">
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Secondary Color</label>
+                                        <input type="color" class="color-picker w-full h-12 rounded-lg" id="secondary-color" value="#BF0A30">
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Accent Color</label>
+                                        <input type="color" class="color-picker w-full h-12 rounded-lg" id="accent-color" value="#FFFFFF">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Typography -->
+                            <div class="space-y-6">
+                                <h4 class="text-lg font-semibold">Typography</h4>
+                                
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Font Family</label>
+                                        <select class="w-full border border-gray-300 rounded-lg px-4 py-2" id="font-family">
+                                            <option value="Poppins">Poppins</option>
+                                            <option value="Arial">Arial</option>
+                                            <option value="Georgia">Georgia</option>
+                                            <option value="Times New Roman">Times New Roman</option>
+                                            <option value="Helvetica">Helvetica</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Base Font Size</label>
+                                        <input type="range" min="12" max="24" value="16" class="w-full" id="base-font-size">
+                                        <div class="text-sm text-gray-600 mt-1" id="font-size-value">16px</div>
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Heading Scale</label>
+                                        <input type="range" min="1" max="3" value="1.5" step="0.1" class="w-full" id="heading-scale">
+                                        <div class="text-sm text-gray-600 mt-1" id="heading-scale-value">1.5x</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Layout -->
+                            <div class="space-y-6">
+                                <h4 class="text-lg font-semibold">Layout & Spacing</h4>
+                                
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Container Width</label>
+                                        <input type="range" min="1200" max="1600" value="1280" class="w-full" id="container-width">
+                                        <div class="text-sm text-gray-600 mt-1" id="container-width-value">1280px</div>
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Section Padding</label>
+                                        <input type="range" min="0" max="100" value="40" class="w-full" id="section-padding">
+                                        <div class="text-sm text-gray-600 mt-1" id="section-padding-value">40px</div>
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Border Radius</label>
+                                        <input type="range" min="0" max="24" value="8" class="w-full" id="border-radius">
+                                        <div class="text-sm text-gray-600 mt-1" id="border-radius-value">8px</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Effects -->
+                            <div class="space-y-6">
+                                <h4 class="text-lg font-semibold">Effects & Animation</h4>
+                                
+                                <div class="space-y-4">
+                                    <div class="flex items-center justify-between">
+                                        <label class="text-sm font-medium text-gray-700">Box Shadows</label>
+                                        <input type="checkbox" id="box-shadows" class="rounded" checked>
+                                    </div>
+                                    
+                                    <div class="flex items-center justify-between">
+                                        <label class="text-sm font-medium text-gray-700">Hover Effects</label>
+                                        <input type="checkbox" id="hover-effects" class="rounded" checked>
+                                    </div>
+                                    
+                                    <div class="flex items-center justify-between">
+                                        <label class="text-sm font-medium text-gray-700">Animations</label>
+                                        <input type="checkbox" id="animations" class="rounded">
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Transition Speed</label>
+                                        <input type="range" min="0" max="1000" value="300" class="w-full" id="transition-speed">
+                                        <div class="text-sm text-gray-600 mt-1" id="transition-speed-value">300ms</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Preview -->
+                        <div class="mt-8">
+                            <h4 class="text-lg font-semibold mb-4">Live Preview</h4>
+                            <div class="live-preview">
+                                <div class="preview-header">
+                                    <h2 class="text-xl font-bold">Wave Liberia</h2>
+                                    <p class="text-sm opacity-90">Your changes appear here</p>
+                                </div>
+                                <div class="preview-nav">
+                                    <a href="#" class="text-sm">Home</a>
+                                    <a href="#" class="text-sm">News</a>
+                                    <a href="#" class="text-sm">Entertainment</a>
+                                    <a href="#" class="text-sm">Sports</a>
+                                </div>
+                                <div class="preview-content">
+                                    <h3 class="text-lg font-bold mb-2">Sample Content</h3>
+                                    <p class="text-gray-600">This is how your design changes will look across the website.</p>
+                                    <button class="btn-primary mt-4 px-4 py-2 rounded">Sample Button</button>
+                                </div>
+                                <div class="preview-footer">
+                                    <p>&copy; 2023 Wave Liberia</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 flex justify-end">
+                            <button class="btn-primary px-6 py-3 rounded-lg" id="apply-design">
+                                <i class="fas fa-paint-roller mr-2"></i>
+                                Apply Design Changes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Social Media Section -->
+                <div id="social-section" class="section-content hidden">
+                    <div class="bg-white rounded-xl shadow p-6">
+                        <h3 class="text-lg font-bold mb-6">Social Media Integration</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <!-- Social Links -->
+                            <div class="space-y-6">
+                                <h4 class="text-lg font-semibold">Social Media Links</h4>
+                                
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Facebook URL</label>
+                                        <input type="url" class="w-full border border-gray-300 rounded-lg px-4 py-2" placeholder="https://facebook.com/yourpage" id="facebook-url">
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Twitter URL</label>
+                                        <input type="url" class="w-full border border-gray-300 rounded-lg px-4 py-2" placeholder="https://twitter.com/yourhandle" id="twitter-url">
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Instagram URL</label>
+                                        <input type="url" class="w-full border border-gray-300 rounded-lg px-4 py-2" placeholder="https://instagram.com/yourprofile" id="instagram-url">
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">YouTube URL</label>
+                                        <input type="url" class="w-full border border-gray-300 rounded-lg px-4 py-2" placeholder="https://youtube.com/yourchannel" id="youtube-url">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Social Widgets -->
+                            <div class="space-y-6">
+                                <h4 class="text-lg font-semibold">Social Media Widgets</h4>
+                                
+                                <div class="space-y-4">
+                                    <div class="flex items-center justify-between">
+                                        <label class="text-sm font-medium text-gray-700">Show Social Share Buttons</label>
+                                        <input type="checkbox" id="social-share" class="rounded" checked>
+                                    </div>
+                                    
+                                    <div class="flex items-center justify-between">
+                                        <label class="text-sm font-medium text-gray-700">Show Facebook Feed</label>
+                                        <input type="checkbox" id="facebook-feed" class="rounded">
+                                    </div>
+                                    
+                                    <div class="flex items-center justify-between">
+                                        <label class="text-sm font-medium text-gray-700">Show Twitter Timeline</label>
+                                        <input type="checkbox" id="twitter-timeline" class="rounded">
+                                    </div>
+                                    
+                                    <div class="flex items-center justify-between">
+                                        <label class="text-sm font-medium text-gray-700">Show Instagram Feed</label>
+                                        <input type="checkbox" id="instagram-feed" class="rounded" checked>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Social Media Handle</label>
+                                    <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2" placeholder="@waveliberia" id="social-handle">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 flex justify-end">
+                            <button class="btn-primary px-6 py-3 rounded-lg" id="apply-social">
+                                <i class="fas fa-share-alt mr-2"></i>
+                                Update Social Media Settings
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- User Management Section -->
+                <div id="users-section" class="section-content hidden">
+                    <div class="bg-white rounded-xl shadow">
+                        <div class="p-6 border-b border-gray-200 flex justify-between items-center">
+                            <h3 class="text-lg font-bold">User Management</h3>
+                            <button class="btn-primary px-4 py-2 rounded-lg text-sm" id="add-user-btn">
+                                <i class="fas fa-plus mr-2"></i>
+                                Add User
+                            </button>
+                        </div>
+                        <div class="p-6">
+                            <div class="overflow-x-auto">
+                                <table class="w-full">
+                                    <thead>
+                                        <tr class="text-left text-sm text-gray-500 border-b border-gray-200">
+                                            <th class="pb-3 font-medium">User</th>
+                                            <th class="pb-3 font-medium">Email</th>
+                                            <th class="pb-3 font-medium">Role</th>
+                                            <th class="pb-3 font-medium">Status</th>
+                                            <th class="pb-3 font-medium">Last Active</th>
+                                            <th class="pb-3 font-medium">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-200" id="users-table-body">
+                                        <tr>
+                                            <td class="py-3">
+                                                <div class="flex items-center">
+                                                    <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Admin" class="h-8 w-8 rounded-full mr-3">
+                                                    <div>
+                                                        <p class="font-medium">Complete Control</p>
+                                                        <p class="text-xs text-gray-500">Super Admin</p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="py-3">
+                                                <p class="text-sm">admin@waveliberia.com</p>
+                                            </td>
+                                            <td class="py-3">
+                                                <span class="user-role-badge role-admin">Administrator</span>
+                                            </td>
+                                            <td class="py-3">
+                                                <span class="text-sm text-green-600">Active</span>
+                                            </td>
+                                            <td class="py-3">
+                                                <p class="text-sm text-gray-500">Just now</p>
+                                            </td>
+                                            <td class="py-3">
+                                                <div class="flex space-x-2">
+                                                    <button class="text-blue-600 hover:text-blue-800">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                    <button class="text-green-600 hover:text-green-800">
+                                                        <i class="fas fa-key"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Section -->
+                <div id="settings-section" class="section-content hidden">
+                    <div class="bg-white rounded-xl shadow p-6">
+                        <h3 class="text-lg font-bold mb-6">Website Settings</h3>
+                        
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            <!-- General Settings -->
+                            <div class="space-y-6">
+                                <h4 class="text-lg font-semibold">General Settings</h4>
+                                
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Website Title</label>
+                                        <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2" value="Wave Liberia" id="site-title">
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Website Description</label>
+                                        <textarea class="w-full border border-gray-300 rounded-lg px-4 py-2" rows="3" id="site-description">Liberia's Premier News & Entertainment Hub</textarea>
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Contact Email</label>
+                                        <input type="email" class="w-full border border-gray-300 rounded-lg px-4 py-2" value="info@waveliberia.com" id="contact-email">
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                                        <input type="tel" class="w-full border border-gray-300 rounded-lg px-4 py-2" value="+231 880 123 4567" id="phone-number">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Advanced Settings -->
+                            <div class="space-y-6">
+                                <h4 class="text-lg font-semibold">Advanced Settings</h4>
+                                
+                                <div class="space-y-4">
+                                    <div class="flex items-center justify-between">
+                                        <label class="text-sm font-medium text-gray-700">Maintenance Mode</label>
+                                        <input type="checkbox" id="maintenance-mode" class="rounded">
+                                    </div>
+                                    
+                                    <div class="flex items-center justify-between">
+                                        <label class="text-sm font-medium text-gray-700">Enable Comments</label>
+                                        <input type="checkbox" id="enable-comments" class="rounded" checked>
+                                    </div>
+                                    
+                                    <div class="flex items-center justify-between">
+                                        <label class="text-sm font-medium text-gray-700">User Registration</label>
+                                        <input type="checkbox" id="user-registration" class="rounded">
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Time Zone</label>
+                                        <select class="w-full border border-gray-300 rounded-lg px-4 py-2" id="timezone">
+                                            <option value="Africa/Monrovia" selected>Africa/Monrovia (GMT+0)</option>
+                                            <option value="UTC">UTC</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="pt-4 border-t border-gray-200">
+                                    <h5 class="font-semibold mb-3 text-red-600">Danger Zone</h5>
+                                    <div class="space-y-2">
+                                        <button class="w-full btn-secondary text-red-600 border-red-200 hover:bg-red-50 py-2 rounded-lg" id="reset-design">
+                                            <i class="fas fa-undo mr-2"></i>
+                                            Reset to Default Design
+                                        </button>
+                                        <button class="w-full btn-secondary text-red-600 border-red-200 hover:bg-red-50 py-2 rounded-lg" id="clear-data">
+                                            <i class="fas fa-trash mr-2"></i>
+                                            Clear All Website Data
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 flex justify-end">
+                            <button class="btn-primary px-6 py-3 rounded-lg" id="save-settings">
+                                <i class="fas fa-save mr-2"></i>
+                                Save All Settings
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Add User Modal -->
+    <div id="add-user-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl p-6 max-w-md w-full mx-4">
+            <h3 class="text-lg font-bold mb-4">Add New User</h3>
+            <form id="add-user-form" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                    <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2" placeholder="Enter full name">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                    <input type="email" class="w-full border border-gray-300 rounded-lg px-4 py-2" placeholder="Enter email address">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Role</label>
+                    <select class="w-full border border-gray-300 rounded-lg px-4 py-2">
+                        <option value="admin">Administrator</option>
+                        <option value="editor">Editor</option>
+                        <option value="author">Author</option>
+                        <option value="contributor">Contributor</option>
+                    </select>
+                </div>
+                <div class="flex space-x-3 pt-4">
+                    <button type="submit" class="btn-primary flex-1 py-2 rounded-lg">Add User</button>
+                    <button type="button" class="btn-secondary px-4 py-2 rounded-lg" id="cancel-add-user">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Authentication check for dashboard
+        function checkAuth() {
+            const isAuthenticated = sessionStorage.getItem('adminAuthenticated') === 'true';
+            
+            if (!isAuthenticated) {
+                window.location.href = 'admin-login.html';
+                return false;
+            }
+            return true;
+        }
+
+        // Website data storage
+        let websiteData = {
+            posts: [
+                {
+                    id: 1,
+                    title: "K-Zee's New Album Breaks Records",
+                    content: "<p>Liberian artist K-Zee has released a groundbreaking new album that is breaking records across the country. The album features collaborations with international artists and has been praised for its unique blend of traditional Liberian sounds with modern production.</p>",
+                    excerpt: "Liberian artist K-Zee releases groundbreaking album breaking records nationwide.",
+                    category: "entertainment",
+                    tags: ["music", "album", "liberian-artist"],
+                    author: "Complete Control",
+                    status: "published",
+                    date: "2023-11-15",
+                    image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                },
+                {
+                    id: 2,
+                    title: "Liberian Designers Shine at Fashion Week",
+                    content: "<p>Local fashion designers showcased their latest collections at Monrovia Fashion Week, receiving international acclaim for their innovative designs that incorporate traditional Liberian textiles and patterns.</p>",
+                    excerpt: "Liberian fashion designers gain international recognition at Monrovia Fashion Week.",
+                    category: "lifestyle",
+                    tags: ["fashion", "design", "liberian-culture"],
+                    author: "Complete Control",
+                    status: "published",
+                    date: "2023-11-14",
+                    image: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                },
+                {
+                    id: 3,
+                    title: "National Sports Team Secures Victory",
+                    content: "<p>The national team secured a stunning victory in the regional championships, bringing pride to the nation and qualifying for the international tournament next year.</p>",
+                    excerpt: "National sports team wins regional championship, qualifies for international tournament.",
+                    category: "sports",
+                    tags: ["sports", "victory", "national-team"],
+                    author: "Complete Control",
+                    status: "draft",
+                    date: "2023-11-13",
+                    image: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                }
+            ],
+            design: {
+                colors: { primary: '#002868', secondary: '#BF0A30', accent: '#FFFFFF' },
+                fonts: { family: 'Poppins', baseSize: '16px', headingScale: '1.5' },
+                layout: { containerWidth: '1280px', sectionPadding: '40px', borderRadius: '8px' },
+                effects: { shadows: true, hoverEffects: true, animations: false, transitionSpeed: '300ms' }
+            },
+            social: {
+                facebook: "https://facebook.com/waveliberia",
+                twitter: "https://twitter.com/waveliberia",
+                instagram: "https://instagram.com/waveliberia",
+                youtube: "https://youtube.com/waveliberia",
+                shareButtons: true,
+                instagramFeed: true
+            },
+            settings: {
+                siteTitle: "Wave Liberia",
+                siteDescription: "Liberia's Premier News & Entertainment Hub",
+                contactEmail: "info@waveliberia.com",
+                phoneNumber: "+231 880 123 4567",
+                maintenanceMode: false,
+                enableComments: true,
+                userRegistration: false,
+                timezone: "Africa/Monrovia"
+            },
+            users: [
+                { id: 1, name: "Complete Control", email: "admin@waveliberia.com", role: "admin", status: "active", avatar: "https://randomuser.me/api/portraits/men/75.jpg" }
+            ]
+        };
+
+        // Load saved data
+        function loadSavedData() {
+            const saved = localStorage.getItem('waveLiberiaData');
+            if (saved) {
+                websiteData = JSON.parse(saved);
+                applySavedData();
+            }
+        }
+
+        // Save data
+        function saveData() {
+            localStorage.setItem('waveLiberiaData', JSON.stringify(websiteData));
+        }
+
+        // Apply saved data to UI
+        function applySavedData() {
+            loadPostsTable();
+            updateDesignForm();
+            updateSocialForm();
+            updateSettingsForm();
+        }
+
+        // Update design form with saved values
+        function updateDesignForm() {
+            document.getElementById('primary-color').value = websiteData.design.colors.primary;
+            document.getElementById('secondary-color').value = websiteData.design.colors.secondary;
+            document.getElementById('accent-color').value = websiteData.design.colors.accent;
+            document.getElementById('font-family').value = websiteData.design.fonts.family;
+            document.getElementById('base-font-size').value = parseInt(websiteData.design.fonts.baseSize);
+            document.getElementById('font-size-value').textContent = websiteData.design.fonts.baseSize;
+            document.getElementById('heading-scale').value = websiteData.design.fonts.headingScale;
+            document.getElementById('heading-scale-value').textContent = websiteData.design.fonts.headingScale + 'x';
+            document.getElementById('container-width').value = parseInt(websiteData.design.layout.containerWidth);
+            document.getElementById('container-width-value').textContent = websiteData.design.layout.containerWidth;
+            document.getElementById('section-padding').value = parseInt(websiteData.design.layout.sectionPadding);
+            document.getElementById('section-padding-value').textContent = websiteData.design.layout.sectionPadding;
+            document.getElementById('border-radius').value = parseInt(websiteData.design.layout.borderRadius);
+            document.getElementById('border-radius-value').textContent = websiteData.design.layout.borderRadius + 'px';
+            document.getElementById('box-shadows').checked = websiteData.design.effects.shadows;
+            document.getElementById('hover-effects').checked = websiteData.design.effects.hoverEffects;
+            document.getElementById('animations').checked = websiteData.design.effects.animations;
+            document.getElementById('transition-speed').value = parseInt(websiteData.design.effects.transitionSpeed);
+            document.getElementById('transition-speed-value').textContent = websiteData.design.effects.transitionSpeed;
+            
+            updateDesignPreview();
+        }
+
+        // Update social form with saved values
+        function updateSocialForm() {
+            document.getElementById('facebook-url').value = websiteData.social.facebook;
+            document.getElementById('twitter-url').value = websiteData.social.twitter;
+            document.getElementById('instagram-url').value = websiteData.social.instagram;
+            document.getElementById('youtube-url').value = websiteData.social.youtube;
+            document.getElementById('social-share').checked = websiteData.social.shareButtons;
+            document.getElementById('instagram-feed').checked = websiteData.social.instagramFeed;
+        }
+
+        // Update settings form with saved values
+        function updateSettingsForm() {
+            document.getElementById('site-title').value = websiteData.settings.siteTitle;
+            document.getElementById('site-description').value = websiteData.settings.siteDescription;
+            document.getElementById('contact-email').value = websiteData.settings.contactEmail;
+            document.getElementById('phone-number').value = websiteData.settings.phoneNumber;
+            document.getElementById('maintenance-mode').checked = websiteData.settings.maintenanceMode;
+            document.getElementById('enable-comments').checked = websiteData.settings.enableComments;
+            document.getElementById('user-registration').checked = websiteData.settings.userRegistration;
+            document.getElementById('timezone').value = websiteData.settings.timezone;
+        }
+
+        // Update design preview
+        function updateDesignPreview() {
+            const preview = document.querySelector('.live-preview');
+            if (preview) {
+                preview.style.setProperty('--primary', websiteData.design.colors.primary);
+                preview.style.setProperty('--secondary', websiteData.design.colors.secondary);
+                
+                const header = preview.querySelector('.preview-header');
+                const button = preview.querySelector('.btn-primary');
+                
+                if (header) {
+                    header.style.backgroundColor = websiteData.design.colors.primary;
+                }
+                if (button) {
+                    button.style.backgroundColor = websiteData.design.colors.primary;
+                    button.style.borderRadius = websiteData.design.layout.borderRadius + 'px';
+                }
+            }
+        }
+
+        // Load posts table
+        function loadPostsTable() {
+            const postsTableBody = document.getElementById('posts-table-body');
+            postsTableBody.innerHTML = '';
+            
+            // Get filter values
+            const categoryFilter = document.getElementById('filter-category').value;
+            const statusFilter = document.getElementById('filter-status').value;
+            
+            // Filter posts
+            const filteredPosts = websiteData.posts.filter(post => {
+                return (!categoryFilter || post.category === categoryFilter) && 
+                       (!statusFilter || post.status === statusFilter);
+            });
+            
+            // Display posts
+            filteredPosts.forEach(post => {
+                const statusClass = `status-${post.status}`;
+                const statusText = post.status.charAt(0).toUpperCase() + post.status.slice(1);
+                const categoryClass = `category-${post.category}`;
+                const categoryText = post.category.charAt(0).toUpperCase() + post.category.slice(1);
+                
+                const postRow = document.createElement('tr');
+                postRow.className = 'table-row';
+                postRow.innerHTML = `
+                    <td class="py-3">
+                        <div class="flex items-center">
+                            <img src="${post.image}" alt="Post" class="h-10 w-10 rounded object-cover mr-3">
+                            <div>
+                                <p class="font-medium">${post.title}</p>
+                                <p class="text-xs text-gray-500">${post.excerpt}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="py-3">
+                        <p class="text-sm">${post.author}</p>
+                    </td>
+                    <td class="py-3">
+                        <span class="category-badge ${categoryClass}">${categoryText}</span>
+                    </td>
+                    <td class="py-3">
+                        <p class="text-sm text-gray-500">${post.date}</p>
+                    </td>
+                    <td class="py-3">
+                        <span class="post-status ${statusClass}">${statusText}</span>
+                    </td>
+                    <td class="py-3">
+                        <div class="flex space-x-2">
+                            <button class="text-blue-600 hover:text-blue-800 edit-post" data-id="${post.id}">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="text-green-600 hover:text-green-800 view-post" data-id="${post.id}">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="text-red-600 hover:text-red-800 delete-post" data-id="${post.id}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                postsTableBody.appendChild(postRow);
+            });
+            
+            // Add event listeners for post actions
+            document.querySelectorAll('.edit-post').forEach(button => {
+                button.addEventListener('click', function() {
+                    const postId = parseInt(this.getAttribute('data-id'));
+                    editPost(postId);
+                });
+            });
+            
+            document.querySelectorAll('.delete-post').forEach(button => {
+                button.addEventListener('click', function() {
+                    const postId = parseInt(this.getAttribute('data-id'));
+                    deletePost(postId);
+                });
+            });
+        }
+
+        // Create new post
+        function createPost(postData) {
+            const newPost = {
+                id: Date.now(),
+                title: postData.title,
+                content: postData.content,
+                excerpt: postData.excerpt,
+                category: postData.category,
+                tags: postData.tags,
+                author: "Complete Control",
+                status: postData.status,
+                date: new Date().toISOString().split('T')[0],
+                image: postData.image || "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+            };
+            
+            websiteData.posts.unshift(newPost);
+            saveData();
+            loadPostsTable();
+        }
+
+        // Edit post
+        function editPost(postId) {
+            const post = websiteData.posts.find(p => p.id === postId);
+            if (post) {
+                // Fill form with post data
+                document.getElementById('post-title').value = post.title;
+                document.getElementById('post-content').innerHTML = post.content;
+                document.getElementById('post-category').value = post.category;
+                document.getElementById('post-tags').value = post.tags.join(', ');
+                document.getElementById('post-excerpt').value = post.excerpt;
+                
+                // Set publish status
+                if (post.status === 'published') {
+                    document.getElementById('publish-now').checked = true;
+                } else {
+                    document.getElementById('save-draft').checked = true;
+                }
+                
+                // Set image preview if exists
+                if (post.image) {
+                    document.getElementById('preview-img').src = post.image;
+                    document.getElementById('image-preview').classList.remove('hidden');
+                    document.getElementById('image-upload-area').classList.add('hidden');
+                }
+                
+                // Change form title and button text
+                document.querySelector('#posts-section h3').textContent = 'Edit Post';
+                document.querySelector('#post-form button[type="submit"]').innerHTML = '<i class="fas fa-save mr-2"></i> Update Post';
+                
+                // Store the post ID for updating
+                document.getElementById('post-form').setAttribute('data-edit-id', postId);
+                
+                // Switch to posts section
+                document.querySelector('[data-section="posts"]').click();
+            }
+        }
+
+        // Delete post
+        function deletePost(postId) {
+            if (confirm('Are you sure you want to delete this post?')) {
+                websiteData.posts = websiteData.posts.filter(p => p.id !== postId);
+                saveData();
+                loadPostsTable();
+            }
+        }
+
+        // Initialize Visual Editor
+        function initVisualEditor() {
+            let currentTool = 'select';
+            let selectedElement = null;
+            let isEditMode = false;
+
+            // Tool selection
+            document.querySelectorAll('[data-tool]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('[data-tool]').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentTool = this.getAttribute('data-tool');
+                });
+            });
+
+            // Toggle edit mode
+            document.getElementById('toggle-edit-mode').addEventListener('click', function() {
+                isEditMode = !isEditMode;
+                const editZone = document.getElementById('edit-zone');
+                const frame = document.getElementById('live-preview-frame');
+                
+                if (isEditMode) {
+                    editZone.classList.add('edit-mode');
+                    this.innerHTML = '<i class="fas fa-times mr-2"></i>Exit Edit Mode';
+                    
+                    // Load the website content for editing
+                    try {
+                        const iframeDoc = frame.contentDocument || frame.contentWindow.document;
+                        makeContentEditable(iframeDoc);
+                    } catch (e) {
+                        console.log('Cannot access iframe content due to CORS');
+                    }
+                } else {
+                    editZone.classList.remove('edit-mode');
+                    this.innerHTML = '<i class="fas fa-edit mr-2"></i>Edit Mode';
+                }
+            });
+
+            // Make content editable
+            function makeContentEditable(doc) {
+                const editableElements = doc.querySelectorAll('h1, h2, h3, h4, h5, h6, p, span, a, li, div[class*="text"]');
+                editableElements.forEach(el => {
+                    el.setAttribute('contenteditable', 'true');
+                    el.style.border = '1px dashed transparent';
+                    el.addEventListener('mouseenter', function() {
+                        this.style.borderColor = '#93c5fd';
+                    });
+                    el.addEventListener('mouseleave', function() {
+                        if (!this.isSameNode(selectedElement)) {
+                            this.style.borderColor = 'transparent';
+                        }
+                    });
+                    el.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        selectElement(this);
+                    });
+                });
+            }
+
+            // Select element for editing
+            function selectElement(element) {
+                if (selectedElement) {
+                    selectedElement.style.borderColor = 'transparent';
+                }
+                selectedElement = element;
+                element.style.borderColor = '#3b82f6';
+                updatePropertyPanel(element);
+            }
+
+            // Update property panel with element properties
+            function updatePropertyPanel(element) {
+                const style = window.getComputedStyle(element);
+                document.getElementById('prop-text-content').value = element.textContent || '';
+                document.getElementById('prop-font-family').value = style.fontFamily.replace(/['"]/g, '').split(',')[0];
+                document.getElementById('prop-font-size').value = style.fontSize;
+                document.getElementById('prop-text-color').value = rgbToHex(style.color);
+                document.getElementById('prop-bg-color').value = rgbToHex(style.backgroundColor);
+                document.getElementById('prop-padding').value = style.padding;
+                document.getElementById('prop-margin').value = style.margin;
+            }
+
+            // Convert RGB to Hex
+            function rgbToHex(rgb) {
+                if (!rgb || rgb === 'rgba(0, 0, 0, 0)') return '#ffffff';
+                const result = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+                if (!result) return '#000000';
+                return "#" + 
+                    ("0" + parseInt(result[1]).toString(16)).slice(-2) +
+                    ("0" + parseInt(result[2]).toString(16)).slice(-2) +
+                    ("0" + parseInt(result[3]).toString(16)).slice(-2);
+            }
+
+            // Apply properties to selected element
+            document.getElementById('apply-properties').addEventListener('click', function() {
+                if (selectedElement) {
+                    selectedElement.textContent = document.getElementById('prop-text-content').value;
+                    selectedElement.style.fontFamily = document.getElementById('prop-font-family').value;
+                    selectedElement.style.fontSize = document.getElementById('prop-font-size').value;
+                    selectedElement.style.color = document.getElementById('prop-text-color').value;
+                    selectedElement.style.backgroundColor = document.getElementById('prop-bg-color').value;
+                    selectedElement.style.padding = document.getElementById('prop-padding').value;
+                    selectedElement.style.margin = document.getElementById('prop-margin').value;
+                }
+            });
+
+            // Save visual changes
+            document.getElementById('save-visual-changes').addEventListener('click', function() {
+                alert('Visual changes saved! In a real implementation, this would update the actual website files.');
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check authentication first
+            if (!checkAuth()) return;
+            
+            loadSavedData();
+            initVisualEditor();
+            
+            // Logout functionality
+            document.getElementById('logout-btn').addEventListener('click', function() {
+                sessionStorage.removeItem('adminAuthenticated');
+                window.location.href = 'admin-login.html';
+            });
+            
+            // Section navigation
+            const navItems = document.querySelectorAll('.nav-item');
+            const sectionContents = document.querySelectorAll('.section-content');
+            const sectionTitle = document.getElementById('section-title');
+            
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const section = this.getAttribute('data-section');
+                    
+                    // Update active nav item
+                    navItems.forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show corresponding section
+                    sectionContents.forEach(content => content.classList.add('hidden'));
+                    document.getElementById(section + '-section').classList.remove('hidden');
+                    
+                    // Update section title
+                    sectionTitle.textContent = this.querySelector('span').textContent;
+                    
+                    // Show/hide edit mode toggle
+                    const editToggle = document.getElementById('edit-mode-toggle');
+                    if (section === 'visual-editor') {
+                        editToggle.classList.remove('hidden');
+                    } else {
+                        editToggle.classList.add('hidden');
+                    }
+                });
+            });
+            
+            // Design controls
+            document.getElementById('base-font-size').addEventListener('input', function() {
+                document.getElementById('font-size-value').textContent = this.value + 'px';
+            });
+            
+            document.getElementById('heading-scale').addEventListener('input', function() {
+                document.getElementById('heading-scale-value').textContent = this.value + 'x';
+            });
+            
+            document.getElementById('container-width').addEventListener('input', function() {
+                document.getElementById('container-width-value').textContent = this.value + 'px';
+            });
+            
+            document.getElementById('section-padding').addEventListener('input', function() {
+                document.getElementById('section-padding-value').textContent = this.value + 'px';
+            });
+            
+            document.getElementById('border-radius').addEventListener('input', function() {
+                document.getElementById('border-radius-value').textContent = this.value + 'px';
+            });
+            
+            document.getElementById('transition-speed').addEventListener('input', function() {
+                document.getElementById('transition-speed-value').textContent = this.value + 'ms';
+            });
+            
+            // Color pickers live update
+            document.querySelectorAll('.color-picker').forEach(picker => {
+                picker.addEventListener('input', function() {
+                    updateDesignPreview();
+                });
+            });
+            
+            // Apply design changes
+            document.getElementById('apply-design').addEventListener('click', function() {
+                websiteData.design.colors.primary = document.getElementById('primary-color').value;
+                websiteData.design.colors.secondary = document.getElementById('secondary-color').value;
+                websiteData.design.colors.accent = document.getElementById('accent-color').value;
+                websiteData.design.fonts.family = document.getElementById('font-family').value;
+                websiteData.design.fonts.baseSize = document.getElementById('base-font-size').value + 'px';
+                websiteData.design.fonts.headingScale = document.getElementById('heading-scale').value;
+                websiteData.design.layout.containerWidth = document.getElementById('container-width').value + 'px';
+                websiteData.design.layout.sectionPadding = document.getElementById('section-padding').value + 'px';
+                websiteData.design.layout.borderRadius = document.getElementById('border-radius').value + 'px';
+                websiteData.design.effects.shadows = document.getElementById('box-shadows').checked;
+                websiteData.design.effects.hoverEffects = document.getElementById('hover-effects').checked;
+                websiteData.design.effects.animations = document.getElementById('animations').checked;
+                websiteData.design.effects.transitionSpeed = document.getElementById('transition-speed').value + 'ms';
+                
+                saveData();
+                alert('Design changes saved and applied!');
+            });
+            
+            // Apply social media changes
+            document.getElementById('apply-social').addEventListener('click', function() {
+                websiteData.social.facebook = document.getElementById('facebook-url').value;
+                websiteData.social.twitter = document.getElementById('twitter-url').value;
+                websiteData.social.instagram = document.getElementById('instagram-url').value;
+                websiteData.social.youtube = document.getElementById('youtube-url').value;
+                websiteData.social.shareButtons = document.getElementById('social-share').checked;
+                websiteData.social.instagramFeed = document.getElementById('instagram-feed').checked;
+                
+                saveData();
+                alert('Social media settings updated!');
+            });
+            
+            // Save settings
+            document.getElementById('save-settings').addEventListener('click', function() {
+                websiteData.settings.siteTitle = document.getElementById('site-title').value;
+                websiteData.settings.siteDescription = document.getElementById('site-description').value;
+                websiteData.settings.contactEmail = document.getElementById('contact-email').value;
+                websiteData.settings.phoneNumber = document.getElementById('phone-number').value;
+                websiteData.settings.maintenanceMode = document.getElementById('maintenance-mode').checked;
+                websiteData.settings.enableComments = document.getElementById('enable-comments').checked;
+                websiteData.settings.userRegistration = document.getElementById('user-registration').checked;
+                websiteData.settings.timezone = document.getElementById('timezone').value;
+                
+                saveData();
+                alert('Settings saved successfully!');
+            });
+            
+            // Reset design
+            document.getElementById('reset-design').addEventListener('click', function() {
+                if (confirm('Are you sure you want to reset all design settings to default?')) {
+                    websiteData.design = {
+                        colors: { primary: '#002868', secondary: '#BF0A30', accent: '#FFFFFF' },
+                        fonts: { family: 'Poppins', baseSize: '16px', headingScale: '1.5' },
+                        layout: { containerWidth: '1280px', sectionPadding: '40px', borderRadius: '8px' },
+                        effects: { shadows: true, hoverEffects: true, animations: false, transitionSpeed: '300ms' }
+                    };
+                    saveData();
+                    updateDesignForm();
+                    alert('Design reset to default!');
+                }
+            });
+            
+            // Clear all data
+            document.getElementById('clear-data').addEventListener('click', function() {
+                if (confirm('WARNING: This will delete all website data including posts, settings, and design changes. This action cannot be undone!')) {
+                    localStorage.removeItem('waveLiberiaData');
+                    location.reload();
+                }
+            });
+            
+            // User management
+            document.getElementById('add-user-btn').addEventListener('click', function() {
+                document.getElementById('add-user-modal').classList.remove('hidden');
+            });
+            
+            document.getElementById('cancel-add-user').addEventListener('click', function() {
+                document.getElementById('add-user-modal').classList.add('hidden');
+            });
+            
+            // ... rest of your existing dashboard code ...
+            
+            // New post button
+            document.getElementById('new-post-btn').addEventListener('click', function() {
+                // Reset form
+                document.getElementById('post-form').reset();
+                document.getElementById('post-content').innerHTML = '';
+                document.getElementById('image-preview').classList.add('hidden');
+                document.getElementById('image-upload-area').classList.remove('hidden');
+                document.querySelector('#posts-section h3').textContent = 'Create New Post';
+                document.querySelector('#post-form button[type="submit"]').innerHTML = '<i class="fas fa-paper-plane mr-2"></i> Publish Post';
+                document.getElementById('post-form').removeAttribute('data-edit-id');
+                document.getElementById('publish-now').checked = true;
+                
+                // Switch to posts section
+                document.querySelector('[data-section="posts"]').click();
+            });
+            
+            // Image upload
+            const imageUploadArea = document.getElementById('image-upload-area');
+            const featuredImage = document.getElementById('featured-image');
+            const imagePreview = document.getElementById('image-preview');
+            const previewImg = document.getElementById('preview-img');
+            const removeImageBtn = document.getElementById('remove-image');
+            
+            imageUploadArea.addEventListener('click', function() {
+                featuredImage.click();
+            });
+            
+            featuredImage.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewImg.src = e.target.result;
+                        imagePreview.classList.remove('hidden');
+                        imageUploadArea.classList.add('hidden');
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            removeImageBtn.addEventListener('click', function() {
+                imagePreview.classList.add('hidden');
+                imageUploadArea.classList.remove('hidden');
+                featuredImage.value = '';
+            });
+            
+            // Schedule date toggle
+            document.querySelectorAll('input[name="publish-status"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    const scheduleDate = document.getElementById('schedule-date');
+                    if (this.value === 'schedule') {
+                        scheduleDate.classList.remove('hidden');
+                    } else {
+                        scheduleDate.classList.add('hidden');
+                    }
+                });
+            });
+            
+            // Rich text editor
+            const editorButtons = document.querySelectorAll('.editor-toolbar button');
+            editorButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const command = this.getAttribute('data-command');
+                    if (command === 'createLink') {
+                        const url = prompt('Enter the URL:');
+                        if (url) {
+                            document.execCommand(command, false, url);
+                        }
+                    } else {
+                        document.execCommand(command, false, null);
+                    }
+                });
+            });
+            
+            // Save draft button
+            document.getElementById('save-draft-btn').addEventListener('click', function() {
+                document.getElementById('save-draft').checked = true;
+                document.getElementById('post-form').dispatchEvent(new Event('submit'));
+            });
+            
+            // Post form submission
+            document.getElementById('post-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const title = document.getElementById('post-title').value;
+                const content = document.getElementById('post-content').innerHTML;
+                const category = document.getElementById('post-category').value;
+                const tags = document.getElementById('post-tags').value.split(',').map(tag => tag.trim()).filter(tag => tag);
+                const excerpt = document.getElementById('post-excerpt').value;
+                const status = document.querySelector('input[name="publish-status"]:checked').value;
+                const image = document.getElementById('preview-img').src;
+                
+                if (!title || !content) {
+                    alert('Please fill in the title and content');
+                    return;
+                }
+                
+                const postData = {
+                    title,
+                    content,
+                    category,
+                    tags,
+                    excerpt,
+                    status,
+                    image
+                };
+                
+                const editId = this.getAttribute('data-edit-id');
+                
+                if (editId) {
+                    // Update existing post
+                    const postId = parseInt(editId);
+                    const post = websiteData.posts.find(p => p.id === postId);
+                    if (post) {
+                        post.title = title;
+                        post.content = content;
+                        post.category = category;
+                        post.tags = tags;
+                        post.excerpt = excerpt;
+                        post.status = status;
+                        post.image = image;
+                        post.date = new Date().toISOString().split('T')[0];
+                    }
+                } else {
+                    // Create new post
+                    createPost(postData);
+                }
+                
+                saveData();
+                loadPostsTable();
+                
+                // Reset form
+                this.reset();
+                document.getElementById('post-content').innerHTML = '';
+                document.getElementById('image-preview').classList.add('hidden');
+                document.getElementById('image-upload-area').classList.remove('hidden');
+                document.querySelector('#posts-section h3').textContent = 'Create New Post';
+                document.querySelector('#post-form button[type="submit"]').innerHTML = '<i class="fas fa-paper-plane mr-2"></i> Publish Post';
+                this.removeAttribute('data-edit-id');
+                document.getElementById('publish-now').checked = true;
+                
+                alert(editId ? 'Post updated successfully!' : 'Post published successfully!');
+                
+                // Switch to all posts section
+                document.querySelector('[data-section="content"]').click();
+            });
+            
+            // Filter posts
+            document.getElementById('filter-category').addEventListener('change', loadPostsTable);
+            document.getElementById('filter-status').addEventListener('change', loadPostsTable);
+            
+            // Publish website button
+            document.getElementById('publish-btn').addEventListener('click', async function() {
+                const btn = this;
+                const publishText = document.getElementById('publish-text');
+                const publishLoading = document.getElementById('publish-loading');
+                
+                // Show loading state
+                publishText.classList.add('hidden');
+                publishLoading.classList.remove('hidden');
+                btn.disabled = true;
+                
+                try {
+                    // Simulate publishing process
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                    
+                    // Save data
+                    saveData();
+                    
+                    // Show success message
+                    alert('Website published successfully! All changes are now live.');
+                    
+                } catch (error) {
+                    alert('Error publishing website. Please try again.');
+                } finally {
+                    // Reset button state
+                    publishText.classList.remove('hidden');
+                    publishLoading.classList.add('hidden');
+                    btn.disabled = false;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

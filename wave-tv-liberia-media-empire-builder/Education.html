@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Education | Wave Liberia - Liberia's Premier Education Hub</title>
+    <meta name="description" content="Latest education news, scholarship opportunities, school updates, and academic developments from Liberia.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #002868;
+            --secondary: #BF0A30;
+            --accent: #FFFFFF;
+            --dark: #0f172a;
+            --light: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #fefefe;
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+        
+        .wave-gradient {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+        
+        .text-wave {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -6px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+            border-radius: 10px;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        .trending-ticker {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 12px 0;
+            overflow: hidden;
+        }
+        
+        .ticker-content {
+            display: inline-block;
+            white-space: nowrap;
+            animation: ticker 25s linear infinite;
+        }
+        
+        @keyframes ticker {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        .category-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .category-scholarships { background: #002868; color: white; }
+        .category-schools { background: #BF0A30; color: white; }
+        .category-higher-ed { background: #0a66c2; color: white; }
+        .category-vocational { background: #3B82F6; color: white; }
+        
+        #mobile-menu {
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+        
+        .featured-article {
+            position: relative;
+            height: 500px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .featured-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.85));
+            padding: 2rem;
+            color: white;
+        }
+        
+        .sidebar-widget {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.5rem;
+            border: 1px solid #f1f3f4;
+        }
+        
+        .sidebar-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--primary);
+            display: inline-block;
+        }
+        
+        .tag {
+            display: inline-block;
+            background: #f8f9fa;
+            color: #6c757d;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin: 0 8px 8px 0;
+            transition: all 0.3s ease;
+            border: 1px solid #e9ecef;
+        }
+        
+        .tag:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .article-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .breaking-badge {
+            background: #BF0A30;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid white;
+        }
+        
+        .trending-number {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--primary);
+            margin-right: 1rem;
+            line-height: 1;
+        }
+        
+        .education-card {
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+        
+        .education-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+        
+        .education-card:hover::before {
+            opacity: 1;
+        }
+        
+        .education-card-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            color: white;
+            z-index: 2;
+            transform: translateY(10px);
+            transition: transform 0.3s ease;
+        }
+        
+        .education-card:hover .education-card-content {
+            transform: translateY(0);
+        }
+        
+        .video-play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .education-card:hover .video-play-button {
+            opacity: 1;
+        }
+        
+        .video-play-button i {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-left: 4px;
+        }
+        
+        .social-stats {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+        
+        .social-stat {
+            display: flex;
+            align-items: center;
+            font-size: 0.875rem;
+        }
+        
+        .social-stat i {
+            margin-right: 4px;
+        }
+        
+        .trending-article {
+            display: flex;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #f1f3f4;
+            transition: all 0.2s ease;
+        }
+        
+        .trending-article:hover {
+            background: #f8f9fa;
+            padding-left: 0.5rem;
+            border-radius: 8px;
+        }
+        
+        .trending-article:last-child {
+            border-bottom: none;
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 4px;
+            bottom: -10px;
+            left: 0;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .featured-article {
+                height: 350px;
+            }
+            
+            .article-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .trending-number {
+                font-size: 1.5rem;
+            }
+        }
+        
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            z-index: -1;
+        }
+        
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--primary);
+            top: -150px;
+            right: -100px;
+        }
+        
+        .shape-2 {
+            width: 200px;
+            height: 200px;
+            background: var(--secondary);
+            bottom: 100px;
+            left: -100px;
+        }
+        
+        .scholarship-badge {
+            background: #10B981;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Floating Background Shapes -->
+    <div class="floating-shape shape-1"></div>
+    <div class="floating-shape shape-2"></div>
+
+    <!-- Trending Ticker -->
+    <div class="trending-ticker">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center">
+                <span class="breaking-badge mr-4">EDUCATION NEWS</span>
+                <div class="overflow-hidden flex-1">
+                    <div class="ticker-content">
+                        <span>Education Ministry announces new scholarship program for 500 students • University of Liberia introduces new STEM programs • Digital learning initiative expands to rural areas • Vocational training centers see record enrollment</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <header class="sticky top-0 z-50 bg-white shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between py-4">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex items-center">
+                        <div class="h-12 w-12 rounded-full wave-gradient flex items-center justify-center mr-3 shadow-lg">
+                            <span class="text-white font-bold text-xl">W</span>
+                        </div>
+                        <div>
+                            <h1 class="text-2xl font-black text-gray-900">WAVE LIBERIA</h1>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="nav-link font-semibold text-gray-700 hover:text-blue-600">Home</a>
+                    <a href="news.html" class="nav-link font-semibold text-gray-700 hover:text-blue-600">News</a>
+                    <a href="entertainment.html" class="nav-link font-semibold text-gray-700 hover:text-blue-600">Entertainment</a>
+                    <a href="sports.html" class="nav-link font-semibold text-gray-700 hover:text-blue-600">Sports</a>
+                    <a href="technology.html" class="nav-link font-semibold text-gray-700 hover:text-blue-600">Technology</a>
+                    <a href="education.html" class="nav-link font-semibold text-blue-600">Education</a>
+                </nav>
+                
+                <!-- Search & Menu -->
+                <div class="flex items-center space-x-4">
+                    <div class="hidden md:flex items-center">
+                        <div class="relative">
+                            <input type="text" placeholder="Search schools, scholarships..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-64">
+                            <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        </div>
+                    </div>
+                    <div class="hidden md:flex space-x-3">
+                        <a href="#" class="text-gray-600 hover:text-blue-600 bg-gray-100 p-2 rounded-full transition-all duration-300 hover:bg-blue-100">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-600 hover:text-blue-400 bg-gray-100 p-2 rounded-full transition-all duration-300 hover:bg-blue-100">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-600 hover:text-red-600 bg-gray-100 p-2 rounded-full transition-all duration-300 hover:bg-red-100">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="text-gray-600 hover:text-blue-600 bg-gray-100 p-2 rounded-full transition-all duration-300 hover:bg-blue-100">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </div>
+                    <button id="mobile-menu-button" class="md:hidden text-gray-600 hover:text-blue-600 bg-gray-100 p-2 rounded-full">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden fixed inset-0 bg-white z-50 transform translate-x-full transition-transform duration-300">
+        <div class="p-6 h-full overflow-y-auto">
+            <div class="flex justify-between items-center mb-8">
+                <div class="flex items-center">
+                    <div class="h-10 w-10 rounded-full wave-gradient flex items-center justify-center mr-3">
+                        <span class="text-white font-bold text-lg">W</span>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-black text-gray-900">WAVE LIBERIA</h1>
+                    </div>
+                </div>
+                <button id="close-menu" class="text-gray-600">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+            <nav class="space-y-6 mb-8">
+                <a href="index.html" class="block font-semibold text-gray-700 hover:text-blue-600 text-lg py-2 border-b border-gray-100">Home</a>
+                <a href="news.html" class="block font-semibold text-gray-700 hover:text-blue-600 text-lg py-2 border-b border-gray-100">News</a>
+                <a href="entertainment.html" class="block font-semibold text-gray-700 hover:text-blue-600 text-lg py-2 border-b border-gray-100">Entertainment</a>
+                <a href="sports.html" class="block font-semibold text-gray-700 hover:text-blue-600 text-lg py-2 border-b border-gray-100">Sports</a>
+                <a href="technology.html" class="block font-semibold text-gray-700 hover:text-blue-600 text-lg py-2 border-b border-gray-100">Technology</a>
+                <a href="education.html" class="block font-semibold text-blue-600 text-lg py-2">Education</a>
+            </nav>
+            <div class="mb-6">
+                <div class="relative">
+                    <input type="text" placeholder="Search schools, scholarships..." class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                </div>
+            </div>
+            <div class="pt-6 border-t border-gray-200">
+                <h3 class="font-bold text-gray-700 mb-4">Follow Us</h3>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-600 hover:text-blue-600 text-xl bg-gray-100 p-3 rounded-full">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="text-gray-600 hover:text-blue-400 text-xl bg-gray-100 p-3 rounded-full">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-600 hover:text-red-600 text-xl bg-gray-100 p-3 rounded-full">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="#" class="text-gray-600 hover:text-blue-600 text-xl bg-gray-100 p-3 rounded-full">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Page Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-black mb-4 text-wave">Education</h1>
+            <div class="w-32 h-1 bg-gradient-to-r from-blue-900 to-red-800 mx-auto mb-6 rounded-full"></div>
+            <p class="text-gray-600 max-w-2xl mx-auto text-lg">Latest education news, scholarship opportunities, school updates, and academic developments from Liberia.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Main Content Column -->
+            <div class="lg:col-span-2">
+                <!-- Featured Education Article -->
+                <div class="featured-article mb-8" style="background-image: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80')">
+                    <div class="featured-overlay">
+                        <span class="category-badge category-scholarships">Scholarships</span>
+                        <h2 class="text-4xl font-black mt-2 mb-4">Education Ministry Announces New Scholarship Program for 500 Students</h2>
+                        <p class="text-lg mb-4">Government-funded scholarships to support STEM programs at universities across Liberia with full tuition coverage.</p>
+                        <div class="flex items-center text-sm">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Joseph Mensah" class="author-avatar mr-3">
+                            <div>
+                                <span class="font-bold">By Joseph Mensah</span>
+                                <div class="text-gray-300">November 15, 2023 • 4 min read</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Scholarship Opportunities -->
+                <div class="mb-12">
+                    <h2 class="section-title text-3xl font-black">Scholarship Opportunities</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Scholarship 1 -->
+                        <div class="education-card card-hover" style="height: 300px; background-image: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80')">
+                            <div class="education-card-content">
+                                <span class="scholarship-badge">APPLY NOW</span>
+                                <h3 class="text-xl font-bold mt-2 mb-2">STEM Scholarship Program 2024</h3>
+                                <p class="text-sm">Full tuition coverage for science and technology students</p>
+                                <div class="social-stats">
+                                    <div class="social-stat">
+                                        <i class="far fa-eye"></i> 8.4K
+                                    </div>
+                                    <div class="social-stat">
+                                        <i class="far fa-clock"></i> Deadline: Dec 15
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Scholarship 2 -->
+                        <div class="education-card card-hover" style="height: 300px; background-image: url('https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80')">
+                            <div class="education-card-content">
+                                <span class="category-badge category-vocational">Vocational</span>
+                                <h3 class="text-xl font-bold mt-2 mb-2">Vocational Training Grants Available</h3>
+                                <p class="text-sm">Free skills training in high-demand technical fields</p>
+                                <div class="social-stats">
+                                    <div class="social-stat">
+                                        <i class="far fa-eye"></i> 6.2K
+                                    </div>
+                                    <div class="social-stat">
+                                        <i class="far fa-clock"></i> Rolling Admission
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video-play-button">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Latest Education News -->
+                <div class="mb-12">
+                    <h2 class="section-title text-3xl font-black">Latest Education News</h2>
+                    
+                    <div class="article-grid">
+                        <!-- Article 1 -->
+                        <article class="bg-white rounded-2xl overflow-hidden shadow-lg card-hover border border-gray-100">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" class="w-full h-48 object-cover" alt="University" />
+                                <span class="category-badge category-higher-ed absolute top-4 left-4">Higher Education</span>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-3">University of Liberia Introduces New STEM Programs</h3>
+                                <p class="text-gray-600 mb-4">Expanded curriculum includes data science, renewable energy, and biotechnology degrees.</p>
+                                <div class="mb-4 text-sm text-gray-500">
+                                    <span>By Sarah Johnson</span> • <span>November 14, 2023</span>
+                                </div>
+                                <div class="flex items-center justify-between text-sm text-gray-500">
+                                    <span><i class="far fa-clock mr-1"></i> 5 hours ago</span>
+                                    <a href="#" class="text-blue-600 font-medium hover:text-blue-800">Read More <i class="fas fa-arrow-right ml-1"></i></a>
+                                </div>
+                            </div>
+                        </article>
+                        
+                        <!-- Article 2 -->
+                        <article class="bg-white rounded-2xl overflow-hidden shadow-lg card-hover border border-gray-100">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" class="w-full h-48 object-cover" alt="Digital Learning" />
+                                <span class="category-badge category-schools absolute top-4 left-4">Schools</span>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-3">Digital Learning Initiative Expands to Rural Areas</h3>
+                                <p class="text-gray-600 mb-4">Tablet-based education program reaches 50 remote schools with internet connectivity.</p>
+                                <div class="mb-4 text-sm text-gray-500">
+                                    <span>By Michael Tweh</span> • <span>November 13, 2023</span>
+                                </div>
+                                <div class="flex items-center justify-between text-sm text-gray-500">
+                                    <span><i class="far fa-clock mr-1"></i> 1 day ago</span>
+                                    <a href="#" class="text-blue-600 font-medium hover:text-blue-800">Read More <i class="fas fa-arrow-right ml-1"></i></a>
+                                </div>
+                            </div>
+                        </article>
+                        
+                        <!-- Article 3 -->
+                        <article class="bg-white rounded-2xl overflow-hidden shadow-lg card-hover border border-gray-100">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1772&q=80" class="w-full h-48 object-cover" alt="Vocational Training" />
+                                <span class="category-badge category-vocational absolute top-4 left-4">Vocational</span>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-3">Vocational Training Centers See Record Enrollment</h3>
+                                <p class="text-gray-600 mb-4">Technical skills programs attract 2,000+ students seeking employment-ready training.</p>
+                                <div class="mb-4 text-sm text-gray-500">
+                                    <span>By James Kollie</span> • <span>November 12, 2023</span>
+                                </div>
+                                <div class="flex items-center justify-between text-sm text-gray-500">
+                                    <span><i class="far fa-clock mr-1"></i> 2 days ago</span>
+                                    <a href="#" class="text-blue-600 font-medium hover:text-blue-800">Read More <i class="fas fa-arrow-right ml-1"></i></a>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+                
+                <!-- School Spotlight -->
+                <div class="mb-12">
+                    <h2 class="section-title text-3xl font-black">School Spotlight</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- School 1 -->
+                        <div class="education-card card-hover" style="height: 400px; background-image: url('https://images.unsplash.com/photo-1562774053-701939374585?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1728&q=80')">
+                            <div class="education-card-content">
+                                <span class="category-badge category-schools">Excellence</span>
+                                <h3 class="text-2xl font-bold mt-2 mb-2">Monrovia Modern High School: Academic Excellence</h3>
+                                <p class="text-sm">Leading secondary school achieves 98% college acceptance rate</p>
+                            </div>
+                        </div>
+                        
+                        <!-- School 2 -->
+                        <div class="education-card card-hover" style="height: 400px; background-image: url('https://images.unsplash.com/photo-1546410531-bb4caa6b424d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1771&q=80')">
+                            <div class="education-card-content">
+                                <span class="category-badge category-vocational">Innovation</span>
+                                <h3 class="text-2xl font-bold mt-2 mb-2">Technical Institute Revolutionizes Skills Training</h3>
+                                <p class="text-sm">Hands-on programs preparing students for Liberia's growing industries</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sidebar Column -->
+            <div class="lg:col-span-1">
+                <!-- Popular Education News -->
+                <div class="sidebar-widget">
+                    <h3 class="sidebar-title">Trending Education</h3>
+                    <div class="space-y-2">
+                        <!-- Trending 1 -->
+                        <div class="trending-article">
+                            <div class="trending-number">01</div>
+                            <div>
+                                <h4 class="font-bold text-sm leading-tight mb-1">New Scholarship Program Announced</h4>
+                                <div class="text-xs text-gray-500">Nov 15, 2023</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Trending 2 -->
+                        <div class="trending-article">
+                            <div class="trending-number">02</div>
+                            <div>
+                                <h4 class="font-bold text-sm leading-tight mb-1">University Adds STEM Programs</h4>
+                                <div class="text-xs text-gray-500">Nov 14, 2023</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Trending 3 -->
+                        <div class="trending-article">
+                            <div class="trending-number">03</div>
+                            <div>
+                                <h4 class="font-bold text-sm leading-tight mb-1">Digital Learning Expands Rural</h4>
+                                <div class="text-xs text-gray-500">Nov 13, 2023</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Trending 4 -->
+                        <div class="trending-article">
+                            <div class="trending-number">04</div>
+                            <div>
+                                <h4 class="font-bold text-sm leading-tight mb-1">Vocational Training Record Enrollment</h4>
+                                <div class="text-xs text-gray-500">Nov 12, 2023</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Upcoming Education Events -->
+                <div class="sidebar-widget">
+                    <h3 class="sidebar-title">Education Events</h3>
+                    <div class="space-y-4">
+                        <!-- Event 1 -->
+                        <div class="flex items-start space-x-3 p-3 bg-blue-50 rounded-xl">
+                            <div class="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-lg flex flex-col items-center justify-center">
+                                <span class="text-blue-600 font-bold text-sm">NOV</span>
+                                <span class="text-blue-800 font-black text-lg">20</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm leading-tight mb-1">National Education Conference</h4>
+                                <div class="text-xs text-gray-500">University of Liberia</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Event 2 -->
+                        <div class="flex items-start space-x-3 p-3 bg-red-50 rounded-xl">
+                            <div class="flex-shrink-0 w-12 h-12 bg-red-100 rounded-lg flex flex-col items-center justify-center">
+                                <span class="text-red-600 font-bold text-sm">DEC</span>
+                                <span class="text-red-800 font-black text-lg">05</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm leading-tight mb-1">Scholarship Application Workshop</h4>
+                                <div class="text-xs text-gray-500">Education Ministry HQ</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Categories -->
+                <div class="sidebar-widget">
+                    <h3 class="sidebar-title">Education Categories</h3>
+                    <div class="space-y-2">
+                        <a href="#" class="flex justify-between items-center py-2 border-b border-gray-100 hover:text-blue-600 font-medium">
+                            <span>Scholarships</span>
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-1 rounded-full">42</span>
+                        </a>
+                        <a href="#" class="flex justify-between items-center py-2 border-b border-gray-100 hover:text-blue-600 font-medium">
+                            <span>Schools</span>
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-1 rounded-full">28</span>
+                        </a>
+                        <a href="#" class="flex justify-between items-center py-2 border-b border-gray-100 hover:text-blue-600 font-medium">
+                            <span>Higher Education</span>
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-1 rounded-full">35</span>
+                        </a>
+                        <a href="#" class="flex justify-between items-center py-2 hover:text-blue-600 font-medium">
+                            <span>Vocational</span>
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-1 rounded-full">18</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Tags -->
+                <div class="sidebar-widget">
+                    <h3 class="sidebar-title">Education Tags</h3>
+                    <div>
+                        <a href="#" class="tag">#Scholarships</a>
+                        <a href="#" class="tag">#EducationReform</a>
+                        <a href="#" class="tag">#STEMEducation</a>
+                        <a href="#" class="tag">#DigitalLearning</a>
+                        <a href="#" class="tag">#VocationalTraining</a>
+                        <a href="#" class="tag">#University</a>
+                    </div>
+                </div>
+                
+                <!-- Newsletter -->
+                <div class="sidebar-widget wave-gradient text-white relative overflow-hidden">
+                    <div class="absolute -top-10 -right-10 w-20 h-20 bg-white opacity-10 rounded-full"></div>
+                    <div class="absolute -bottom-10 -left-10 w-16 h-16 bg-white opacity-10 rounded-full"></div>
+                    
+                    <h3 class="sidebar-title text-white">Education Updates</h3>
+                    <p class="mb-4 text-white text-opacity-90">Get scholarship alerts, education news, and academic opportunities delivered to your inbox.</p>
+                    <div class="space-y-3 relative z-10">
+                        <input type="email" placeholder="Your email address" class="w-full px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-white">
+                        <button class="w-full bg-white text-blue-900 hover:bg-gray-100 px-6 py-3 rounded-lg font-bold transition-all duration-300 transform hover:-translate-y-1">
+                            Subscribe Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-1 wave-gradient"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <!-- Column 1 -->
+                <div>
+                    <div class="flex items-center mb-6">
+                        <div class="h-10 w-10 rounded-full wave-gradient flex items-center justify-center mr-3">
+                            <span class="text-white font-bold text-lg">W</span>
+                        </div>
+                        <div>
+                            <h1 class="text-xl font-black text-white">WAVE LIBERIA</h1>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 mb-6">Liberia's premier education destination.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-blue-500 transition-colors bg-gray-800 p-2 rounded-full">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors bg-gray-800 p-2 rounded-full">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-red-500 transition-colors bg-gray-800 p-2 rounded-full">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-blue-600 transition-colors bg-gray-800 p-2 rounded-full">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Column 2 -->
+                <div>
+                    <h3 class="text-lg font-bold mb-6">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+                        <li><a href="news.html" class="text-gray-400 hover:text-white transition-colors">News</a></li>
+                        <li><a href="entertainment.html" class="text-gray-400 hover:text-white transition-colors">Entertainment</a></li>
+                        <li><a href="sports.html" class="text-gray-400 hover:text-white transition-colors">Sports</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Column 3 -->
+                <div>
+                    <h3 class="text-lg font-bold mb-6">Categories</h3>
+                    <ul class="space-y-3">
+                        <li><a href="news.html" class="text-gray-400 hover:text-white transition-colors">News</a></li>
+                        <li><a href="entertainment.html" class="text-gray-400 hover:text-white transition-colors">Entertainment</a></li>
+                        <li><a href="sports.html" class="text-gray-400 hover:text-white transition-colors">Sports</a></li>
+                        <li><a href="technology.html" class="text-gray-400 hover:text-white transition-colors">Technology</a></li>
+                        <li><a href="education.html" class="text-gray-400 hover:text-white transition-colors">Education</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Column 4 -->
+                <div>
+                    <h3 class="text-lg font-bold mb-6">Contact Us</h3>
+                    <ul class="space-y-3 text-gray-400">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-blue-500"></i>
+                            <span>Education Plaza, Monrovia, Liberia</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-3 text-blue-500"></i>
+                            <span>+231 880 123 4567</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3 text-blue-500"></i>
+                            <span>info@waveliberia.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-gray-800 text-center text-gray-500 text-sm">
+                <p>©️ 2023 Wave Liberia. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Mobile menu functionality
+        const menuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeButton = document.getElementById('close-menu');
+
+        menuButton.addEventListener('click', () => {
+            mobileMenu.classList.remove('translate-x-full');
+        });
+
+        closeButton.addEventListener('click', () => {
+            mobileMenu.classList.add('translate-x-full');
+        });
+
+        // Close menu when clicking on a link
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('translate-x-full');
+            });
+        });
+
+        // Sticky header on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('shadow-lg');
+            } else {
+                header.classList.remove('shadow-lg');
+            }
+        });
+    </script>
+    <!-- Add these 2 lines to EVERY page -->
+<script src="config.js"></script>
+<script src="data-sync.js"></script>
+</body>
+</html>

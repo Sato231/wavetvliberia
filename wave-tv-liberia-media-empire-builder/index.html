@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wave Liberia | Liberia's Premier News & Entertainment Hub</title>
+    <meta name="description" content="Wave Liberia - Your premier destination for Liberian news, entertainment, sports, technology, and education.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #002868; /* Liberia Blue */
+            --secondary: #BF0A30; /* Liberia Red */
+            --accent: #FFFFFF; /* Liberia White */
+            --dark: #0f172a;
+            --light: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #fefefe;
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+        
+        .wave-gradient {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+        
+        .text-wave {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -6px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+            border-radius: 10px;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        .trending-ticker {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 12px 0;
+            overflow: hidden;
+        }
+        
+        .ticker-content {
+            display: inline-block;
+            white-space: nowrap;
+            animation: ticker 25s linear infinite;
+        }
+        
+        @keyframes ticker {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        .category-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .category-news { background: #002868; color: white; }
+        .category-entertainment { background: #BF0A30; color: white; }
+        .category-sports { background: #0a66c2; color: white; }
+        .category-technology { background: #3B82F6; color: white; }
+        .category-education { background: #10B981; color: white; }
+        
+        #mobile-menu {
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+        
+        .featured-article {
+            position: relative;
+            height: 500px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .featured-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.85));
+            padding: 2rem;
+            color: white;
+        }
+        
+        .sidebar-widget {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.5rem;
+            border: 1px solid #f1f3f4;
+        }
+        
+        .sidebar-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--primary);
+            display: inline-block;
+        }
+        
+        .tag {
+            display: inline-block;
+            background: #f8f9fa;
+            color: #6c757d;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin: 0 8px 8px 0;
+            transition: all 0.3s ease;
+            border: 1px solid #e9ecef;
+        }
+        
+        .tag:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .article-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .breaking-badge {
+            background: #BF0A30;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid white;
+        }
+        
+        .trending-number {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--primary);
+            margin-right: 1rem;
+            line-height: 1;
+        }
+        
+        .entertainment-card {
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+        
+        .entertainment-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+        
+        .entertainment-card:hover::before {
+            opacity: 1;
+        }
+        
+        .entertainment-card-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            color: white;
+            z-index: 2;
+            transform: translateY(10px);
+            transition: transform 0.3s ease;
+        }
+        
+        .entertainment-card:hover .entertainment-card-content {
+            transform: translateY(0);
+        }
+        
+        .video-play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .entertainment-card:hover .video-play-button {
+            opacity: 1;
+        }
+        
+        .video-play-button i {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-left: 4px;
+        }
+        
+        .social-stats {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+        
+        .social-stat {
+            display: flex;
+            align-items: center;
+            font-size: 0.875rem;
+        }
+        
+        .social-stat i {
+            margin-right: 4px;
+        }
+        
+        .instagram-gradient {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+        }
+        
+        .trending-article {
+            display: flex;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #f1f3f4;
+            transition: all 0.2s ease;
+        }
+        
+        .trending-article:hover {
+            background: #f8f9fa;
+            padding-left: 0.5rem;
+            border-radius: 8px;
+        }
+        
+        .trending-article:last-child {
+            border-bottom: none;
+        }
+        
+        /* Carousel styling */
+        .carousel {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1rem;
+        }
+        
+        .carousel-track {
+            display: flex;
+            transition: transform 0.6s ease;
+        }
+        
+        .carousel-item {
+            min-width: 100%;
+            flex-shrink: 0;
+            position: relative;
+        }
+        
+        .carousel-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: 2rem;
+        }
+        
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        
+        .carousel-nav:hover {
+            background: rgba(0, 0, 0, 0.8);
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .carousel-prev {
+            left: 20px;
+        }
+        
+        .carousel-next {
+            right: 20px;
+        }
+        
+        .carousel-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            z-index: 10;
+        }
+        
+        .carousel-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .carousel-indicator.active {
+            background: white;
+            transform: scale(1.2);
+        }
+        
+        @media (max-width: 768px) {
+            .featured-article {
+                height: 350px;
+            }
+            
+            .article-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .trending-number {
+                font-size: 1.5rem;
+            }
+        }
+        
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            z-index: -1;
+        }
+        
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--primary);
+            top: -150px;
+            right: -100px;
+        }
+        
+        .shape-2 {
+            width: 200px;
+            height: 200px;
+            background: var(--secondary);
+            bottom: 100px;
+            left: -100px;
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 4px;
+            bottom: -10px;
+            left: 0;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            height: 200px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        
+        .gallery-overlay i {
+            color: white;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Floating Background Shapes -->
+    <div class="floating-shape shape-1"></div>
+    <div class="floating-shape shape-2"></div>
+
+    <!-- Trending Ticker -->
+    <div class="trending-ticker">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center">
+                <span class="breaking-badge mr-4">TRENDING NOW</span>
+                <div class="overflow-hidden flex-1">
+                    <div class="ticker-content">
+                        <span>Liberia's national football team prepares for AFCON qualifiers • New technology hub opens in Monrovia • Education ministry announces scholarship program • Entertainment industry sees growth with new film productions</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <header class="sticky top-0 z-50 bg-white shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between py-4">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex items-center">
+                        <div class="h-12 w-12 rounded-full wave-gradient flex items-center justify-center mr-3 shadow-lg">
+                            <span class="text-white font-bold text-xl">W</span>
+                        </div>
+                        <div>
+                            <h1 class="text-2xl font-black text-gray-900">WAVE LIBERIA</h1>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#" class="nav-link font-semibold text-gray-700 hover:text-blue-600">Home</a>
+                    <a href="#" class="nav-link font-semibold text-gray-700 hover:text-blue-600">News</a>
+                    <a href="#" class="nav-link font-semibold text-gray-700 hover:text-blue-600">Entertainment</a>
+                    <a href="#" class="nav-link font-semibold text-gray-700 hover:text-blue-600">Sports</a>
+                    <a href="#" class="nav-link font-semibold text-gray-700 hover:text-blue-600">Technology</a>
+                    <a href="#" class="nav-link font-semibold text-gray-700 hover:text-blue-600">Education</a>
+                </nav>
+                
+                <!-- Search & Menu -->
+                <div class="flex items-center space-x-4">
+                    <div class="hidden md:flex items-center">
+                        <div class="relative">
+                            <input type="text" placeholder="Search news, topics..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-64">
+                            <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        </div>
+                    </div>
+                    <div class="hidden md:flex space-x-3">
+                        <a href="#" class="text-gray-600 hover:text-blue-600 bg-gray-100 p-2 rounded-full transition-all duration-300 hover:bg-blue-100">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-600 hover:text-blue-400 bg-gray-100 p-2 rounded-full transition-all duration-300 hover:bg-blue-100">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-600 hover:text-red-600 bg-gray-100 p-2 rounded-full transition-all duration-300 hover:bg-red-100">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="text-gray-600 hover:text-blue-600 bg-gray-100 p-2 rounded-full transition-all duration-300 hover:bg-blue-100">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </div>
+                    <button id="mobile-menu-button" class="md:hidden text-gray-600 hover:text-blue-600 bg-gray-100 p-2 rounded-full">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden fixed inset-0 bg-white z-50 transform translate-x-full transition-transform duration-300">
+        <div class="p-6 h-full overflow-y-auto">
+            <div class="flex justify-between items-center mb-8">
+                <div class="flex items-center">
+                    <div class="h-10 w-10 rounded-full wave-gradient flex items-center justify-center mr-3">
+                        <span class="text-white font-bold text-lg">W</span>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-black text-gray-900">WAVE LIBERIA</h1>
+                    </div>
+                </div>
+                <button id="close-menu" class="text-gray-600">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+            <nav class="space-y-6 mb-8">
+                <a href="#" class="block font-semibold text-gray-700 hover:text-blue-600 text-lg py-2 border-b border-gray-100">Home</a>
+                <a href="#" class="block font-semibold text-gray-700 hover:text-blue-600 text-lg py-2 border-b border-gray-100">News</a>
+                <a href="#" class="block font-semibold text-gray-700 hover:text-blue-600 text-lg py-2 border-b border-gray-100">Entertainment</a>
+                <a href="#" class="block font-semibold text-gray-700 hover:text-blue-600 text-lg py-2 border-b border-gray-100">Sports</a>
+                <a href="#" class="block font-semibold text-gray-700 hover:text-blue-600 text-lg py-2 border-b border-gray-100">Technology</a>
+                <a href="#" class="block font-semibold text-gray-700 hover:text-blue-600 text-lg py-2">Education</a>
+            </nav>
+            <div class="mb-6">
+                <div class="relative">
+                    <input type="text" placeholder="Search news, topics..." class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                </div>
+            </div>
+            <div class="pt-6 border-t border-gray-200">
+                <h3 class="font-bold text-gray-700 mb-4">Follow Us</h3>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-600 hover:text-blue-600 text-xl bg-gray-100 p-3 rounded-full">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="text-gray-600 hover:text-blue-400 text-xl bg-gray-100 p-3 rounded-full">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-600 hover:text-red-600 text-xl bg-gray-100 p-3 rounded-full">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="#" class="text-gray-600 hover:text-blue-600 text-xl bg-gray-100 p-3 rounded-full">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Featured Stories Carousel -->
+        <section class="py-8 px-4 max-w-7xl mx-auto">
+            <div class="text-center mb-8">
+                <h2 class="text-4xl font-black mb-4">Top Stories</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-blue-900 to-red-800 mx-auto mb-6 rounded-full"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto">Breaking news and important stories from across Liberia and beyond.</p>
+            </div>
+            
+            <div class="carousel mb-8">
+                <div class="carousel-track" id="carousel-track">
+                    <div class="carousel-item">
+                        <img src="https://images.unsplash.com/photo-1585829365295-ab7cd400c167?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" class="w-full h-96 object-cover" alt="Liberia News" />
+                        <div class="carousel-caption">
+                            <span class="category-badge category-news mb-2">NEWS</span>
+                            <h3 class="text-2xl font-bold mb-2">Government Announces New Infrastructure Projects Across Liberia</h3>
+                            <p class="text-gray-200">Major road construction and public facility upgrades planned for 2024 to boost economic development.</p>
+                            <div class="text-white mt-2 text-sm">
+                                <span>By Joseph Mensah</span> • <span>November 15, 2023</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" class="w-full h-96 object-cover" alt="Liberia Entertainment" />
+                        <div class="carousel-caption">
+                            <span class="category-badge category-entertainment mb-2">ENTERTAINMENT</span>
+                            <h3 class="text-2xl font-bold mb-2">Liberian Artist K-Zee Drops Highly Anticipated Album "Monrovia Nights"</h3>
+                            <p class="text-gray-200">The album features collaborations with international artists and has already broken streaming records in its first week.</p>
+                            <div class="text-white mt-2 text-sm">
+                                <span>By Sarah Johnson</span> • <span>November 14, 2023</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" class="w-full h-96 object-cover" alt="Liberia Sports" />
+                        <div class="carousel-caption">
+                            <span class="category-badge category-sports mb-2">SPORTS</span>
+                            <h3 class="text-2xl font-bold mb-2">Liberia National Football Team Prepares for AFCON Qualifiers</h3>
+                            <p class="text-gray-200">Coach names final squad as Lone Star begins intensive training camp ahead of crucial matches.</p>
+                            <div class="text-white mt-2 text-sm">
+                                <span>By Michael Tweh</span> • <span>November 13, 2023</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-nav carousel-prev" id="prev">
+                    <i class="fas fa-chevron-left"></i>
+                </div>
+                <div class="carousel-nav carousel-next" id="next">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="carousel-indicators" id="indicators">
+                    <div class="carousel-indicator active" data-index="0"></div>
+                    <div class="carousel-indicator" data-index="1"></div>
+                    <div class="carousel-indicator" data-index="2"></div>
+                </div>
+            </div>
+        </section>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Main Content Column -->
+            <div class="lg:col-span-2">
+                <!-- Featured Article -->
+                <div class="featured-article mb-8" style="background-image: url('https://images.unsplash.com/photo-1585829365295-ab7cd400c167?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80')">
+                    <div class="featured-overlay">
+                        <span class="category-badge category-news">News</span>
+                        <h2 class="text-4xl font-black mt-2 mb-4">Government Announces New Infrastructure Projects Across Liberia</h2>
+                        <p class="text-lg mb-4">Major road construction and public facility upgrades planned for 2024 to boost economic development and connectivity between regions.</p>
+                        <div class="flex items-center text-sm">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Joseph Mensah" class="author-avatar mr-3">
+                            <div>
+                                <span class="font-bold">By Joseph Mensah</span>
+                                <div class="text-gray-300">November 15, 2023 • 4 min read</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Trending Now Section -->
+                <div class="mb-12">
+                    <h2 class="section-title text-3xl font-black">Trending Now</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Trending Article 1 -->
+                        <div class="entertainment-card card-hover" style="height: 300px; background-image: url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80')">
+                            <div class="entertainment-card-content">
+                                <span class="category-badge category-entertainment">Entertainment</span>
+                                <h3 class="text-xl font-bold mt-2 mb-2">Liberian Artist K-Zee Drops Highly Anticipated Album</h3>
+                                <div class="social-stats">
+                                    <div class="social-stat">
+                                        <i class="far fa-heart"></i> 2.4K
+                                    </div>
+                                    <div class="social-stat">
+                                        <i class="far fa-comment"></i> 348
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video-play-button">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                        
+                        <!-- Trending Article 2 -->
+                        <div class="entertainment-card card-hover" style="height: 300px; background-image: url('https://images.unsplash.com/photo-1461896836934-ffe607ba8211?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80')">
+                            <div class="entertainment-card-content">
+                                <span class="category-badge category-sports">Sports</span>
+                                <h3 class="text-xl font-bold mt-2 mb-2">Liberia National Football Team Prepares for AFCON</h3>
+                                <div class="social-stats">
+                                    <div class="social-stat">
+                                        <i class="far fa-heart"></i> 3.1K
+                                    </div>
+                                    <div class="social-stat">
+                                        <i class="far fa-comment"></i> 512
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video-play-button">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Latest News -->
+                <div class="mb-12">
+                    <h2 class="section-title text-3xl font-black">Latest News</h2>
+                    
+                    <div class="article-grid">
+                        <!-- Article 1 -->
+                        <article class="bg-white rounded-2xl overflow-hidden shadow-lg card-hover border border-gray-100">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" class="w-full h-48 object-cover" alt="Technology" />
+                                <span class="category-badge category-technology absolute top-4 left-4">Technology</span>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-3">New Technology Hub Opens in Monrovia to Support Startups</h3>
+                                <p class="text-gray-600 mb-4">The facility will provide resources and mentorship for young Liberian entrepreneurs in the tech sector.</p>
+                                <div class="mb-4 text-sm text-gray-500">
+                                    <span>By Sarah Johnson</span> • <span>November 14, 2023</span>
+                                </div>
+                                <div class="flex items-center justify-between text-sm text-gray-500">
+                                    <span><i class="far fa-clock mr-1"></i> 5 hours ago</span>
+                                    <a href="#" class="text-blue-600 font-medium hover:text-blue-800">Read More <i class="fas fa-arrow-right ml-1"></i></a>
+                                </div>
+                            </div>
+                        </article>
+                        
+                        <!-- Article 2 -->
+                        <article class="bg-white rounded-2xl overflow-hidden shadow-lg card-hover border border-gray-100">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" class="w-full h-48 object-cover" alt="Education" />
+                                <span class="category-badge category-education absolute top-4 left-4">Education</span>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-3">Education Ministry Announces New Scholarship Program</h3>
+                                <p class="text-gray-600 mb-4">500 students to benefit from government-funded scholarships for STEM programs at universities.</p>
+                                <div class="mb-4 text-sm text-gray-500">
+                                    <span>By Michael Tweh</span> • <span>November 13, 2023</span>
+                                </div>
+                                <div class="flex items-center justify-between text-sm text-gray-500">
+                                    <span><i class="far fa-clock mr-1"></i> 1 day ago</span>
+                                    <a href="#" class="text-blue-600 font-medium hover:text-blue-800">Read More <i class="fas fa-arrow-right ml-1"></i></a>
+                                </div>
+                            </div>
+                        </article>
+                        
+                        <!-- Article 3 -->
+                        <article class="bg-white rounded-2xl overflow-hidden shadow-lg card-hover border border-gray-100">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" class="w-full h-48 object-cover" alt="Entertainment" />
+                                <span class="category-badge category-entertainment absolute top-4 left-4">Entertainment</span>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-3">Annual Music Festival Returns With Star-Studded Lineup</h3>
+                                <p class="text-gray-600 mb-4">International and local artists to perform at the biggest music event of the year in Monrovia.</p>
+                                <div class="mb-4 text-sm text-gray-500">
+                                    <span>By James Kollie</span> • <span>November 12, 2023</span>
+                                </div>
+                                <div class="flex items-center justify-between text-sm text-gray-500">
+                                    <span><i class="far fa-clock mr-1"></i> 2 days ago</span>
+                                    <a href="#" class="text-blue-600 font-medium hover:text-blue-800">Read More <i class="fas fa-arrow-right ml-1"></i></a>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+                
+                <!-- Category Spotlight -->
+                <div class="mb-12">
+                    <h2 class="section-title text-3xl font-black">Category Spotlight</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Spotlight 1 -->
+                        <div class="entertainment-card card-hover" style="height: 400px; background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80')">
+                            <div class="entertainment-card-content">
+                                <span class="category-badge category-technology">Technology</span>
+                                <h3 class="text-2xl font-bold mt-2 mb-2">Liberia's Growing Tech Scene</h3>
+                                <p class="text-sm">How young innovators are transforming the country's digital landscape</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Spotlight 2 -->
+                        <div class="entertainment-card card-hover" style="height: 400px; background-image: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80')">
+                            <div class="entertainment-card-content">
+                                <span class="category-badge category-education">Education</span>
+                                <h3 class="text-2xl font-bold mt-2 mb-2">Revolutionizing Education in Rural Areas</h3>
+                                <p class="text-sm">New initiatives bringing quality education to underserved communities</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Photo Gallery -->
+                <div class="mb-12">
+                    <h2 class="section-title text-3xl font-black">Photo Gallery</h2>
+                    
+                    <div class="gallery-grid">
+                        <div class="gallery-item">
+                            <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=776&q=80" alt="Concert">
+                            <div class="gallery-overlay">
+                                <i class="fas fa-expand"></i>
+                            </div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" alt="Sports">
+                            <div class="gallery-overlay">
+                                <i class="fas fa-expand"></i>
+                            </div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" alt="Technology">
+                            <div class="gallery-overlay">
+                                <i class="fas fa-expand"></i>
+                            </div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" alt="Education">
+                            <div class="gallery-overlay">
+                                <i class="fas fa-expand"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sidebar Column -->
+            <div class="lg:col-span-1">
+                <!-- Popular Posts -->
+                <div class="sidebar-widget">
+                    <h3 class="sidebar-title">Hot This Week</h3>
+                    <div class="space-y-2">
+                        <!-- Hot Post 1 -->
+                        <div class="trending-article">
+                            <div class="trending-number">01</div>
+                            <div>
+                                <h4 class="font-bold text-sm leading-tight mb-1">New Infrastructure Projects Announced</h4>
+                                <div class="text-xs text-gray-500">Nov 15, 2023</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Hot Post 2 -->
+                        <div class="trending-article">
+                            <div class="trending-number">02</div>
+                            <div>
+                                <h4 class="font-bold text-sm leading-tight mb-1">K-Zee's New Album Breaks Records</h4>
+                                <div class="text-xs text-gray-500">Nov 14, 2023</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Hot Post 3 -->
+                        <div class="trending-article">
+                            <div class="trending-number">03</div>
+                            <div>
+                                <h4 class="font-bold text-sm leading-tight mb-1">National Team AFCON Preparations</h4>
+                                <div class="text-xs text-gray-500">Nov 13, 2023</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Hot Post 4 -->
+                        <div class="trending-article">
+                            <div class="trending-number">04</div>
+                            <div>
+                                <h4 class="font-bold text-sm leading-tight mb-1">New Tech Hub Opens in Monrovia</h4>
+                                <div class="text-xs text-gray-500">Nov 12, 2023</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Hot Post 5 -->
+                        <div class="trending-article">
+                            <div class="trending-number">05</div>
+                            <div>
+                                <h4 class="font-bold text-sm leading-tight mb-1">Education Scholarship Program</h4>
+                                <div class="text-xs text-gray-500">Nov 11, 2023</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Upcoming Events -->
+                <div class="sidebar-widget">
+                    <h3 class="sidebar-title">Upcoming Events</h3>
+                    <div class="space-y-4">
+                        <!-- Event 1 -->
+                        <div class="flex items-start space-x-3 p-3 bg-blue-50 rounded-xl">
+                            <div class="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-lg flex flex-col items-center justify-center">
+                                <span class="text-blue-600 font-bold text-sm">NOV</span>
+                                <span class="text-blue-800 font-black text-lg">24</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm leading-tight mb-1">Liberia Tech Summit 2023</h4>
+                                <div class="text-xs text-gray-500">Monrovia Convention Center</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Event 2 -->
+                        <div class="flex items-start space-x-3 p-3 bg-red-50 rounded-xl">
+                            <div class="flex-shrink-0 w-12 h-12 bg-red-100 rounded-lg flex flex-col items-center justify-center">
+                                <span class="text-red-600 font-bold text-sm">DEC</span>
+                                <span class="text-red-800 font-black text-lg">05</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm leading-tight mb-1">National Education Conference</h4>
+                                <div class="text-xs text-gray-500">University of Liberia</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Event 3 -->
+                        <div class="flex items-start space-x-3 p-3 bg-blue-50 rounded-xl">
+                            <div class="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-lg flex flex-col items-center justify-center">
+                                <span class="text-blue-600 font-bold text-sm">DEC</span>
+                                <span class="text-blue-800 font-black text-lg">15</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm leading-tight mb-1">Sports Awards Ceremony</h4>
+                                <div class="text-xs text-gray-500">Samuel K. Doe Stadium</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Categories -->
+                <div class="sidebar-widget">
+                    <h3 class="sidebar-title">Categories</h3>
+                    <div class="space-y-2">
+                        <a href="#" class="flex justify-between items-center py-2 border-b border-gray-100 hover:text-blue-600 font-medium">
+                            <span>News</span>
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-1 rounded-full">42</span>
+                        </a>
+                        <a href="#" class="flex justify-between items-center py-2 border-b border-gray-100 hover:text-blue-600 font-medium">
+                            <span>Entertainment</span>
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-1 rounded-full">28</span>
+                        </a>
+                        <a href="#" class="flex justify-between items-center py-2 border-b border-gray-100 hover:text-blue-600 font-medium">
+                            <span>Sports</span>
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-1 rounded-full">35</span>
+                        </a>
+                        <a href="#" class="flex justify-between items-center py-2 border-b border-gray-100 hover:text-blue-600 font-medium">
+                            <span>Technology</span>
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-1 rounded-full">22</span>
+                        </a>
+                        <a href="#" class="flex justify-between items-center py-2 hover:text-blue-600 font-medium">
+                            <span>Education</span>
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-1 rounded-full">18</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Tags -->
+                <div class="sidebar-widget">
+                    <h3 class="sidebar-title">Trending Tags</h3>
+                    <div>
+                        <a href="#" class="tag">#LiberiaNews</a>
+                        <a href="#" class="tag">#AFCON2023</a>
+                        <a href="#" class="tag">#TechHub</a>
+                        <a href="#" class="tag">#EducationReform</a>
+                        <a href="#" class="tag">#KZeeAlbum</a>
+                        <a href="#" class="tag">#Infrastructure</a>
+                        <a href="#" class="tag">#Scholarships</a>
+                        <a href="#" class="tag">#SportsAwards</a>
+                    </div>
+                </div>
+                
+                <!-- Newsletter -->
+                <div class="sidebar-widget wave-gradient text-white relative overflow-hidden">
+                    <div class="absolute -top-10 -right-10 w-20 h-20 bg-white opacity-10 rounded-full"></div>
+                    <div class="absolute -bottom-10 -left-10 w-16 h-16 bg-white opacity-10 rounded-full"></div>
+                    
+                    <h3 class="sidebar-title text-white">Get the Scoop First</h3>
+                    <p class="mb-4 text-white text-opacity-90">Subscribe for exclusive news and updates across all categories.</p>
+                    <div class="space-y-3 relative z-10">
+                        <input type="email" placeholder="Your email address" class="w-full px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-white">
+                        <button class="w-full bg-white text-blue-900 hover:bg-gray-100 px-6 py-3 rounded-lg font-bold transition-all duration-300 transform hover:-translate-y-1">
+                            Subscribe Now
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Social Media -->
+                <div class="sidebar-widget instagram-gradient text-white">
+                    <h3 class="sidebar-title text-white">Follow on Instagram</h3>
+                    <p class="mb-4 text-white text-opacity-90">@waveliberia</p>
+                    <div class="grid grid-cols-3 gap-2">
+                        <div class="aspect-square bg-white bg-opacity-20 rounded-lg"></div>
+                        <div class="aspect-square bg-white bg-opacity-20 rounded-lg"></div>
+                        <div class="aspect-square bg-white bg-opacity-20 rounded-lg"></div>
+                        <div class="aspect-square bg-white bg-opacity-20 rounded-lg"></div>
+                        <div class="aspect-square bg-white bg-opacity-20 rounded-lg"></div>
+                        <div class="aspect-square bg-white bg-opacity-20 rounded-lg"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-1 wave-gradient"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <!-- Column 1 -->
+                <div>
+                    <div class="flex items-center mb-6">
+                        <div class="h-10 w-10 rounded-full wave-gradient flex items-center justify-center mr-3">
+                            <span class="text-white font-bold text-lg">W</span>
+                        </div>
+                        <div>
+                            <h1 class="text-xl font-black text-white">WAVE LIBERIA</h1>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 mb-6">Liberia's premier news and information destination, delivering the latest across news, entertainment, sports, technology, and education.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-blue-500 transition-colors bg-gray-800 p-2 rounded-full">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors bg-gray-800 p-2 rounded-full">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-red-500 transition-colors bg-gray-800 p-2 rounded-full">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-blue-600 transition-colors bg-gray-800 p-2 rounded-full">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Column 2 -->
+                <div>
+                    <h3 class="text-lg font-bold mb-6">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">News</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Events</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Careers</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Column 3 -->
+                <div>
+                    <h3 class="text-lg font-bold mb-6">Categories</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">News</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Entertainment</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Sports</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Technology</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Education</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Column 4 -->
+                <div>
+                    <h3 class="text-lg font-bold mb-6">Contact Us</h3>
+                    <ul class="space-y-3 text-gray-400">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-blue-500"></i>
+                            <span>Media Plaza, Monrovia, Liberia</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-3 text-blue-500"></i>
+                            <span>+231 880 123 4567</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3 text-blue-500"></i>
+                            <span>info@waveliberia.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-gray-800 text-center text-gray-500 text-sm">
+                <p>©️ 2023 Wave Liberia. All rights reserved. | <a href="#" class="hover:text-white transition-colors">Privacy Policy</a> | <a href="#" class="hover:text-white transition-colors">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Mobile menu functionality
+        const menuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeButton = document.getElementById('close-menu');
+
+        menuButton.addEventListener('click', () => {
+            mobileMenu.classList.remove('translate-x-full');
+        });
+
+        closeButton.addEventListener('click', () => {
+            mobileMenu.classList.add('translate-x-full');
+        });
+
+        // Close menu when clicking on a link
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('translate-x-full');
+            });
+        });
+
+        // Sticky header on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('shadow-lg');
+            } else {
+                header.classList.remove('shadow-lg');
+            }
+        });
+
+        // Carousel functionality
+        const track = document.getElementById("carousel-track");
+        const slides = Array.from(track.children);
+        const indicators = document.querySelectorAll('.carousel-indicator');
+        let index = 0;
+
+        const nextBtn = document.getElementById("next");
+        const prevBtn = document.getElementById("prev");
+
+        function updateCarousel() {
+            track.style.transform = `translateX(-${index * 100}%)`;
+            
+            // Update indicators
+            indicators.forEach((indicator, i) => {
+                if (i === index) {
+                    indicator.classList.add('active');
+                } else {
+                    indicator.classList.remove('active');
+                }
+            });
+        }
+
+        nextBtn.addEventListener("click", () => {
+            index = (index + 1) % slides.length;
+            updateCarousel();
+        });
+
+        prevBtn.addEventListener("click", () => {
+            index = (index - 1 + slides.length) % slides.length;
+            updateCarousel();
+        });
+        
+        // Indicator click events
+        indicators.forEach(indicator => {
+            indicator.addEventListener('click', () => {
+                index = parseInt(indicator.getAttribute('data-index'));
+                updateCarousel();
+            });
+        });
+
+        // Auto-slide every 5 seconds
+        setInterval(() => {
+            index = (index + 1) % slides.length;
+            updateCarousel();
+        }, 5000);
+    </script>
+    <!-- Add these 2 lines to EVERY page -->
+<script src="config.js"></script>
+<script src="data-sync.js"></script>
+</body>
+</html>
